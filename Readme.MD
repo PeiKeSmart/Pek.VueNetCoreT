@@ -1,3 +1,3 @@
-﻿# Pek.WAF - WAF防火墙
+﻿# Pek.VueNetCoreT - Vue框架模板
 
-基于DH框架的Kestrel Web 服务器的基本 WAF库
+参考Vue.NetCore的Vue框架模板
