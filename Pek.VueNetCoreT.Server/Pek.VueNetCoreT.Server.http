@@ -1,6 +1,0 @@
-@Pek.VueNetCoreT.Server_HostAddress = http://localhost:5188
-
-GET {{Pek.VueNetCoreT.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
