@@ -1,0 +1,32 @@
+{
+  "Ruleset": {
+    "Operator": "OrElse",
+    "Rules": [
+      {
+        "MemberName": "Path",
+        "Operator": "EndsWith",
+        "Inputs": [ ".php" ]
+      },
+      {
+        "MemberName": "Path",
+        "Operator": "EndsWith",
+        "Inputs": [ ".env" ]
+      },
+      {
+        "MemberName": "Path",
+        "Operator": "EndsWith",
+        "Inputs": [ ".git" ]
+      }
+      //{
+      //  "MemberName": "UserAgent",
+      //  "Operator": "IsMatch",
+      //  "TargetValue": "^(curl|java|python)"
+      //}
+      //{
+      //  "MemberName": "IpCountry",
+      //  "Operator": "IsInInput",
+      //  "Inputs": [ "CN", "RU" ]
+      //}
+    ]
+  }
+}

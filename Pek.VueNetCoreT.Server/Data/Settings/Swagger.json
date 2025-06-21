@@ -1,0 +1,45 @@
+{
+  "SwaggerOption": {
+    "Enabled": true,
+    "MiniProfilerEnabled": false,
+    "XmlComments": [ "", "" ],
+    "RoutePrefix": "help",
+    "Description": "深圳市海凌科电子有限公司提供的HlktechIoT.Api HTTP API 接口",
+    "Title": "HlktechIoT.Api接口文档",
+    "Version": "first version",
+    "TermsOfService": "hlktech.com",
+    "Contact": {
+      "Email": "berin@hlktech.com",
+      "Name": "HlktechIoT.Api",
+      "Url": "https://www.hlktech.com"
+    },
+    "License": {
+      "Name": "HlktechIoT.Api 官方文档",
+      "Url": "https://www.hlktech.com"
+    },
+    "Headers": [ //swagger默认头参数
+      {
+        "Name": "Signature",
+        "Description": "通信加密签名"
+      },
+      {
+        "Name": "TimeStamp",
+        "Description": "时间戳"
+      },
+      {
+        "Name": "Nonce",
+        "Description": "随机数"
+      }
+    ],
+    "Query": [ //swagger默认url公共参数
+      //{
+      //  "Name": "sign",
+      //  "Description": "签名"
+      //},
+      //{
+      //  "Name": "timestamp",
+      //  "Description": "客户端时间戳"
+      //}
+    ]
+  }
+}
