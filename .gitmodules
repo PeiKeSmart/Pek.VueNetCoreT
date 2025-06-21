@@ -1,0 +1,3 @@
+[submodule "Other/Vue.NetCore"]
+	path = Other/Vue.NetCore
+	url = https://gitee.com/x_discoverer/Vue.NetCore.git
