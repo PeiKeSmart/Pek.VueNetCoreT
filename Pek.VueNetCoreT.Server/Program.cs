@@ -120,11 +120,7 @@ app.UseAuthentication();  // 认证中间件 用于Jwt检验
 
 app.UseAuthorization();  // 授权中间件
 
-app.UsePekRouter(endpoints =>
-{
-    endpoints.MapControllers(); // 映射控制器路由
-    app.UsePekEndpoints(); // 注册 Pek 的路由端点
-});
+app.UsePekEndpoints(); // 注册 Pek 的路由端点
 // app.MapControllers();
 //app.UseCubeHome();
 
