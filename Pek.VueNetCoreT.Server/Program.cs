@@ -126,6 +126,6 @@ app.UsePekEndpoints(); // 注册 Pek 的路由端点
 
 app.MapFallbackToFile("/index.html");
 
-//app.RegisterService("DHDeploy.Agent", null, builder.Environment.EnvironmentName, "/pek/info");
+app.RegisterService("Pek.VueNetCoreT.Server", null, builder.Environment.EnvironmentName, "/pek/info");
 
 app.Run();
