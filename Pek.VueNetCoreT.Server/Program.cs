@@ -80,15 +80,6 @@ if (!ApplicationHelper.IsIIS)
     });
 }
 
-services.Configure<ForwardedHeadersOptions>(options =>   // X-Forwarded-For
-{
-    options.ForwardLimit = null;
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    options.ForwardedForHeaderName = SecuritySetting.Current.TrueClientIPHeader;
-    options.KnownNetworks.Clear();
-    options.KnownProxies.Clear();
-});
-
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -101,7 +92,6 @@ services.AddCube(builder.Configuration, builder.Environment);
 //services.AddSingleton<MyWebSocketClient>();
 
 //// 后台服务
-//services.AddHostedService<MyHostedService>();
 //services.AddHostedService<WebSocketHostedService>();
 
 services.AddAllSingletons(); // 注册所有单例服务
