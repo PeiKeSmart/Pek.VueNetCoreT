@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using NewLife.Caching;
 using NewLife.Caching.Services;
 using NewLife.Cube;
+using NewLife.Cube.WebMiddleware;
 using NewLife.Log;
 using NewLife.Model;
 
@@ -38,10 +39,10 @@ builder.Host.UseDefaultServiceProvider(options =>
 
 var services = builder.Services;
 
-//// 引入星尘，设置监控中间件
-//var star = services.AddStardust(null!);
-//TracerMiddleware.Tracer = star?.Tracer;
-//star?.SetWatchdog(120);
+// 引入星尘，设置监控中间件
+var star = services.AddStardust(null!);
+TracerMiddleware.Tracer = star?.Tracer;
+star?.SetWatchdog(120);
 
 // 分布式服务，使用配置中心RedisCache配置
 ObjectContainer.Current.AddSingleton<ICacheProvider, RedisCacheProvider>();
