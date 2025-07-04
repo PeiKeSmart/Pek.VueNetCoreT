@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-using NewLife.Log;
+﻿using NewLife.Log;
 
 using Pek.Events;
 using Pek.NCube.Events;

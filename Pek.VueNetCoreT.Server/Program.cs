@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 using NewLife.Caching;
@@ -92,6 +91,7 @@ services.AddCube(builder.Configuration, builder.Environment);
 //services.AddSingleton<MyWebSocketClient>();
 
 //// 后台服务
+//services.AddHostedService<MyHostedService>();
 //services.AddHostedService<WebSocketHostedService>();
 
 services.AddAllSingletons(); // 注册所有单例服务
