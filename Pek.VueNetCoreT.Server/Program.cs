@@ -82,7 +82,12 @@ if (!ApplicationHelper.IsIIS)
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null; // 禁用驼峰命名，保留原始属性名称
+        // 保持原始属性名称格式（首字母大写）
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
+        // 其他可选配置
+        options.JsonSerializerOptions.WriteIndented = true; // 格式化输出
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; // 大小写不敏感
     });
 
 services.AddCube(builder.Configuration, builder.Environment);

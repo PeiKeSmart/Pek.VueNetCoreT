@@ -9,18 +9,18 @@
     <SpaRoot>..\pek.vuenetcoret.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:53007</SpaProxyServerUrl>
-  </PropertyGroup>
+  </PropertyGroup>  
 
   <ItemGroup>
-    <PackageReference Include="DH.NRedis.Extensions" Version="4.12.2025.619-beta1116" />
-    <PackageReference Include="DH.NStardust.Extensions" Version="4.12.2025.621-beta0339" />
-    <PackageReference Include="DH.Swagger" Version="4.12.2025.621-beta0729" />
+    <PackageReference Include="DH.NRedis.Extensions" Version="4.13.2025.701-beta0850" />
+    <PackageReference Include="DH.NStardust.Extensions" Version="4.13.2025.701-beta0954" />
+    <PackageReference Include="DH.Swagger" Version="4.13.2025.707-beta0858" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>9.0.6</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
-    <PackageReference Include="Pek.NCube.Api" Version="4.12.2025.624-beta0406" />
-    <PackageReference Include="PekVue.FrameWrok" Version="4.13.2025.624-beta0224" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Pek.NCube.Api" Version="4.13.2025.705-beta0819" />
+    <PackageReference Include="PekVue.FrameWrok" Version="4.13.2025.705-beta0822" />
   </ItemGroup>
 
   <ItemGroup>
