@@ -24,3 +24,5 @@ bld/
 /BinTest
 /BinUnitTest
 /pek.vuenetcoret.client/.vscode
+/Pek.VueNetCoreT.Server/.config
+/Pek.VueNetCoreT.Server/Properties/PublishProfiles

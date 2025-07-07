@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="forecast in post" :key="forecast.date">
+                    <tr v-for="forecast in post" :key="forecast.Date">
                         <td>{{ forecast.Date }}</td>
                         <td>{{ forecast.TemperatureC }}</td>
                         <td>{{ forecast.TemperatureF }}</td>
