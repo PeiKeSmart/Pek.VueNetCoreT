@@ -1,5 +1,10 @@
 {
-  "watch": {
-    "exclude": [ "**/*.db" ]
-  }
+  "excludeFiles": [
+    "**/*.db",
+    "**/bin/**/*.db",
+    "**/Data/**/*.db",
+    "**/DebugLog/**",
+    "**/*.esproj",
+    "../pek.vuenetcoret.client/**/*"
+  ]
 }

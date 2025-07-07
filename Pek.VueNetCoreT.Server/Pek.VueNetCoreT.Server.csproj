@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\pek.vuenetcoret.client\pek.vuenetcoret.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
     </ProjectReference>
   </ItemGroup>
 
