@@ -1,6 +1,6 @@
 {
   "name": "pek.vuenetcoret.client",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,14 +12,33 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "@microsoft/signalr": "^8.0.7",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
+    "ali-oss": "^6.23.0",
+    "axios": "^1.10.0",
+    "core-js": "^3.44.0",
+    "echarts": "^5.6.0",
+    "element-plus": "^2.10.3",
+    "less": "^4.3.0",
+    "vue": "^3.5.17",
+    "vue-draggable-next": "^2.2.1",
+    "vue-router": "^4.5.1",
+    "vuex": "^4.1.0",
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@vue/babel-plugin-jsx": "^1.2.1",
+    "@vue/babel-preset-jsx": "^1.4.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
     "@tsconfig/node22": "^22.0.1",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/tsconfig": "^0.7.0",
+    "babel-jest": "^27.0.6",
     "eslint": "^9.22.0",
     "eslint-plugin-vue": "~10.0.0",
     "jiti": "^2.4.2",
