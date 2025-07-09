@@ -11,16 +11,16 @@ import { ElLoading as Loading, ElMessage as Message } from 'element-plus'
 let loadingInstance
 let loadingStatus = false
 if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = 'https://localhost:7272';
+  // 开发环境使用相对路径，利用 Vite 代理
+  axios.defaults.baseURL = '';
 }
 else if (process.env.NODE_ENV == 'debug') {
-  axios.defaults.baseURL = 'https://localhost:7272';
+  // 调试环境也使用相对路径，利用 Vite 代理
+  axios.defaults.baseURL = '';
 }
 else if (process.env.NODE_ENV == 'production') {
-  axios.defaults.baseURL = 'http://api.volcore.xyz/';
+  axios.defaults.baseURL = '';
 }
-
-//axios.defaults.baseURL = 'http://api.volcore.xyz/';
 
 if (!axios.defaults.baseURL.endsWith('/')) {
   axios.defaults.baseURL+="/";
