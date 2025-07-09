@@ -20,6 +20,10 @@ namespace Pek.VueNetCoreT.Server.Controllers.Api.V1;
 [JwtAuthorize("Vue")]
 public class MenuController : PekControllerBaseX
 {
+    /// <summary>
+    /// 获取菜单树形结构
+    /// </summary>
+    /// <returns></returns>
     [HttpGet, HttpPost, Route("GetTreeMenu")]
     public IActionResult GetTreeMenu()
     {
