@@ -1,73 +1,63 @@
 <template>
-  <div id="app">
+  <div id="nav"></div>
+  <el-config-provider :locale="locale">
     <router-view />
-  </div>
+  </el-config-provider>
 </template>
-
 <script>
-  import "./assets/css/common.less";
+  import { ElConfigProvider } from "element-plus";
+  import zhCn from "element-plus/es/locale/lang/zh-cn";
   export default {
-    name: "App",
-    created() {
-
+    name: "vol_app",
+    components: {
+      [ElConfigProvider.name]: ElConfigProvider, //添加组件
     },
-    mounted() {
-      document.getElementById("v-loading-container").style.display = "none";
-    }
+    data() {
+      return {
+        locale: zhCn,
+      };
+    },
   };
 </script>
-
-<style>
-  .el-loading {
-    z-index: 999999;
-  }
-  /* 解决element-ui的table表格控件表头与内容列不对齐问题 */
-  /* .el-table th.gutter{
-    display: table-cell !important;
-  } */
-  .el-table th {
-    display: table-cell !important;
-  }
-
-  .el-loading .el-loading-spinner {
-    padding: 7px;
-    background: #ececec;
-    width: 200px;
-    color: red;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    border-radius: 5px;
-    border: 1px solid #a0a0a0;
-  }
-
+<style lang="stylus">
   #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* text-align: center; */
-    color: #2c3e50;
-    /* margin-top: 60px; */
-  }
-
-  #nprogress .bar {
-    background: white;
-    height: 2px;
-    /* filter: blur(0.5px) */
-  }
-
-  .ivu-form .ivu-form-item-label {
-    color: #2e2e2f;
-  }
-  /* 2021.03.20修复明细表格错位 */
-  .grid-detail .el-table__fixed-body-wrapper {
-    top: 41px !important;
-  }
-</style>
-<style>
-  html,
-  body,
-  #app {
     height: 100%;
+    width: 100%;
   }
+
+  .el-alert--error.is-light {
+    border: 1px solid #ffe0e0;
+  }
+
+  .el-alert--error.is-light {
+    color: #f74444 !important;
+  }
+
+  .el-alert--warning.is-light {
+    border: 1px solid #ffe6c1;
+  }
+
+  .el-alert--info.is-light {
+    border: 1px solid #e6e5e5;
+  }
+
+  .el-alert--info .el-alert__description {
+    color: #6b6b6b !important;
+  }
+
+  .el-alert--warning.is-light {
+    background-color: #fdf6ec;
+    color: #d68409 !important;
+  }
+
+  .el-alert--success.is-light {
+    border: 1px solid #cdf7b8;
+  }
+
+    .el-alert--success.is-light .el-alert__description {
+      color: #3baf02 !important;
+    }
 </style>
