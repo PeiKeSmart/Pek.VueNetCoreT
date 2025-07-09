@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 
+using DH.Entity;
 using DH.RateLimter;
 
 using Microsoft.AspNetCore.Authorization;
@@ -184,5 +185,40 @@ public class UserController : PekControllerBaseX
             result.Message = showerrmsg;
             return result;
         }
+    }
+
+    /// <summary>
+    /// 退出登录
+    /// </summary>
+    /// <param name="AccessToken">AccessToken</param>
+    /// <param name="RefreshToken">RefreshToken</param>
+    /// <param name="Lng">语言标识符</param>
+    /// <returns></returns>
+    [HttpPost, Route("Logout")]
+    //[ApiSignature]
+    public IActionResult Logout([FromForm] String AccessToken, [FromForm] String RefreshToken, [FromHeader] String Lng)
+    {
+        var result = new DvResult();
+
+        //var UId = HttpContext.Items["clientId"].SafeString();
+        var UId = DHWeb.Identity.GetValue(ClaimTypes.Sid);
+
+        var model = UserE.FindByID(UId.ToInt());
+        if (model == null)
+        {
+            result.message = GetResource("未获取到当前用户数据！", Lng);
+            return result;
+        }
+
+        TokenStore.RemoveToken(AccessToken);
+        TokenStore.RemoveRefreshToken(RefreshToken);
+
+        var provider = ManageProvider.Provider;
+        provider?.Logout();
+
+        UserE.WriteLog(LocaleStringResource.GetResource("退出登录", Lng), true, String.Format(LocaleStringResource.GetResource("用户[{0}]退出登录", Lng), model.Name));
+
+        result.code = StateCode.Ok;
+        return result;
     }
 }
