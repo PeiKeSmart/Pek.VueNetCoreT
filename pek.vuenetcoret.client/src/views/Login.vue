@@ -45,7 +45,7 @@
             target="_blank">QQ3群:743852316(满)</a>
           &nbsp; &nbsp;&nbsp; &nbsp;
           <a href="https://qm.qq.com/cgi-bin/qm/qr?k=YRZBbf64qsUeEmh24I65u2aIZFn2C-Ha&jump_from=webapi&qr=1" style="text-decoration: none" target="_blank">QQ4群：959924606</a>
-          <!-- <a href="http://v2.volcore.xyz/document/guide" style="text-decoration: none" target="_blank">框架文档</a> -->
+          <a href="http://v2.volcore.xyz/document/guide" style="text-decoration: none" target="_blank">框架文档</a>
         </p>
       </div>
       <!-- 链接位置 -->
@@ -66,7 +66,7 @@
     </div>
 
     <!-- 页面底部 -->
-    <!-- <div class="login-footer">
+    <div class="login-footer">
       <a style="text-decoration: none" href="https://beian.miit.gov.cn/" target="_blank">京ICP备19056538号-1</a>
 
 
@@ -76,7 +76,7 @@
       <a href="http://demo.volcore.xyz" style="text-decoration: none" target="blank">视频演示地址</a>
     </div>
 
-    <img class="login-bg" src="/static/login_bg.png" /> -->
+    <img class="login-bg" src="/static/login_bg.png" />
   </div>
 </template>
 
@@ -91,7 +91,7 @@ import {
 } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 // import store from '../store/index';
-// import http from '@/../src/api/http.js';
+import http from '@/../src/api/http.js';
 export default defineComponent({
   setup(props, context) {
     // store.commit('clearUserInfo', '');
@@ -105,12 +105,19 @@ export default defineComponent({
     });
 
     // const getVierificationCode = () => {
-    //   http.get('/api/User/getVierificationCode').then((x) => {
+    //   http.get('/api/v1/CaptCha/GetVierificationCode').then((x) => {
     //     codeImgSrc.value = 'data:image/png;base64,' + x.img;
     //     userInfo.UUID = x.uuid;
     //   });
     // };
     // getVierificationCode();
+
+    const getTreeMenu = () => {
+      http.post('/api/v1/Menu/getTreeMenu').then((x) => {
+        console.log('x => ', x)
+      });
+    };
+    getTreeMenu();
 
     let appContext = getCurrentInstance().appContext;
     // let $message = appContext.config.globalProperties.$message;
