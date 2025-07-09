@@ -65,6 +65,10 @@ public partial class DHStartup : IPekStartup
         LocalizationSettings.Current.AutomaticallyDetectLanguage = true;
         LocalizationSettings.Current.Save();
 
+        // 验证码
+        // 内存缓存
+        services.AddCaptcha(configuration);
+
         //var content = "Data".AsDirectory();
         //// 下载区域数据
         //var RegionPath = "Data/Regions.db".GetFullPath();
