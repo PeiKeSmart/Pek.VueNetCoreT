@@ -47,13 +47,6 @@ export default defineConfig({
     },
     server: {
         proxy: {
-        //   '/api': {
-        //     // 105.200
-        //     target: "https://localhost:7272",
-        //     changeOrigin: true,
-        //     rewrite: (path) => path.replace(/^\/api/, ''),
-        //   },
-            // 代理所有以 /api 开头的请求
             '^/api': {
                 target,
                 secure: false,
