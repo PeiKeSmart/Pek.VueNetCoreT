@@ -16,7 +16,7 @@ namespace Pek.VueNetCoreT.Server.Controllers.Api.V1;
 /// 建立时间: 2025-07-09
 /// </remarks>
 [Produces("application/json")]
-[CustomRoute(ApiVersions.V1, PrefixName: "")]
+[CustomRoute(ApiVersions.V1)]
 [JwtAuthorize("Vue")]
 public class MenuController : PekControllerBaseX
 {
@@ -26,6 +26,7 @@ public class MenuController : PekControllerBaseX
         var result = new DGResult();
 
         result.Code = StateCode.Ok;
+
         return result;
     }
 }
