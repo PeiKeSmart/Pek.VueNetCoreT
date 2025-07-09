@@ -52,6 +52,11 @@ export default defineConfig({
         secure: false,
         changeOrigin: true
       },
+      '^/CaptCha/GetVierificationCode': {
+        target,
+        secure: false,
+        changeOrigin: true
+      },
       // 如果您的后端接口不是以 /api 开头，可以使用以下配置代理所有非静态资源请求
       // '^(?!/src|/node_modules|/@vite|/@fs|/favicon.ico).*': {
       //     target,
