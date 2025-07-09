@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+// import store from './store'
 import ElementPlus from 'element-plus'
 // import 'element-plus/lib/theme-chalk/index.css';
 import 'element-plus/dist/index.css'
@@ -57,6 +57,6 @@ app.config.globalProperties.$global = {
 //     //cdn: "https://static.xxx.com"
 //   }
 // }
-// .use(viewgird)
-app.use(store).use(ElementPlus, { size: 'default' }).use(router).mount('#app')
+// .use(viewgird) .use(store)
+app.use(ElementPlus, { size: 'default' }).use(router).mount('#app')
 app.config.globalProperties.$Message = app.config.globalProperties.$message

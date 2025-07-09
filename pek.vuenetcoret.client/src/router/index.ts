@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 // import formsMulti from './formsMulti'
 // import tables from './tables'
 // import viewgird from './viewGird'
-import store from '@/store/index'
+// import store from './store'
 // import redirect from './redirect'
 // import charts from './charts'
 const routes = [
@@ -111,27 +111,28 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // if (to.matched.length == 0) return next({ path: '/404' });
   // //2020.06.03增加路由切换时加载提示
-  store.dispatch("onLoading", true);
-  if ((to.hasOwnProperty('meta') && to.meta.anonymous) || store.getters.isLogin() || to.path == '/login') {
+  // store.dispatch("onLoading", true);
+  // || store.getters.isLogin()
+  if ((to.hasOwnProperty('meta') && to.meta.anonymous)  || to.path == '/login') {
     return next();
   }
 
   next({ path: '/login', query: { redirect: Math.random() } });
 })
 router.afterEach((to, from) => {
-  store.dispatch("onLoading", false);
+  // store.dispatch("onLoading", false);
 })
 router.onError((error) => {
   // const targetPath = router.currentRoute.value.matched;
-  try {
-    console.log(error.message);
-    if (process.env.NODE_ENV == 'development') {
-      alert(error.message)
-    }
-    localStorage.setItem("route_error", error.message)
-  } catch (e) {
+  // try {
+  //   console.log(error.message);
+  //   if (process.env.NODE_ENV == 'development') {
+  //     alert(error.message)
+  //   }
+  //   localStorage.setItem("route_error", error.message)
+  // } catch (e) {
 
-  }
-  window.location.href = '/'
+  // }
+  // window.location.href = '/'
 });
 export default router
