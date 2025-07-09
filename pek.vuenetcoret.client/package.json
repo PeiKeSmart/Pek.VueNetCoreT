@@ -62,36 +62,5 @@
     "stylus": "^0.63.0",
     "stylus-loader": "^8.1.0",
     "vite-plugin-lang-jsx": "^1.5.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {},
-    "overrides": [
-      {
-        "files": [
-          "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
-        ],
-        "env": {
-          "jest": true
-        }
-      }
-    ]
-  },
-  "eslintIgnore": [
-    "*"
-  ],
-  "jest": {
-    "preset": "@vue/cli-plugin-unit-jest"
   }
 }
