@@ -148,7 +148,7 @@ public class UserController : PekControllerBaseX
                 };
                 var resultToken = TokenBuilder.Create(payload);  //获取Token
 
-                result.Data = new { Token = resultToken, UId = ManageProvider.User?.ID, };
+                result.Data = new { Token = resultToken, UId = ManageProvider.User?.ID, UserName = ManageProvider.User?.Name, Img = ManageProvider.User?.Avatar };
             }
             else
             {
