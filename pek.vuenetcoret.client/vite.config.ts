@@ -47,12 +47,24 @@ export default defineConfig({
     },
     server: {
         proxy: {
-          '/api': {
-            // 105.200
-            target: "https://localhost:7272",
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-          },
+        //   '/api': {
+        //     // 105.200
+        //     target: "https://localhost:7272",
+        //     changeOrigin: true,
+        //     rewrite: (path) => path.replace(/^\/api/, ''),
+        //   },
+            // 代理所有以 /api 开头的请求
+            '^/api': {
+                target,
+                secure: false,
+                changeOrigin: true
+            },
+            // 如果您的后端接口不是以 /api 开头，可以使用以下配置代理所有非静态资源请求
+            // '^(?!/src|/node_modules|/@vite|/@fs|/favicon.ico).*': {
+            //     target,
+            //     secure: false,
+            //     changeOrigin: true
+            // }
         },
         port: parseInt(env.DEV_SERVER_PORT || '53007'),
         https: {
