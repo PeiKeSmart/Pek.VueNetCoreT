@@ -26,3 +26,4 @@ bld/
 /pek.vuenetcoret.client/.vscode
 /Pek.VueNetCoreT.Server/.config
 /Pek.VueNetCoreT.Server/Properties/PublishProfiles
+/src/Pek.VueNetCoreT.Server/.config
