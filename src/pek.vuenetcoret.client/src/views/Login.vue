@@ -112,12 +112,12 @@ export default defineComponent({
     // };
     // getVierificationCode();
 
-    const getTreeMenu = () => {
-      http.post('/api/v1/Menu/getTreeMenu').then((x) => {
-        console.log('x => ', x)
-      });
-    };
-    getTreeMenu();
+    // const getTreeMenu = () => {
+    //   http.post('/api/v1/Menu/getTreeMenu').then((x) => {
+    //     console.log('x => ', x)
+    //   });
+    // };
+    // getTreeMenu();
 
     let appContext = getCurrentInstance().appContext;
     // let $message = appContext.config.globalProperties.$message;

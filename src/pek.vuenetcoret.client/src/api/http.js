@@ -44,18 +44,20 @@ axios.interceptors.response.use(
     return Promise.resolve(res)
   },
   (error) => {
+    console.log('error => ', error)
     closeLoading()
     let httpMessage = ''
     if (error.response) {
       if (error.response.status == '401') {
-        if (error.response.data && error.response.data.code == 401) {
-          if (!localStorage.getItem('user')) {
+        if (error.response.data && error.response.data.Code == 2) {
+          console.log('123131231')
+          // if (!localStorage.getItem('user')) {
             // Message.error({
             //     showClose: true,
             //     message: '登陆已过期',
             //     type: 'error'
             // });
-          }
+          // }
           toLogin()
           return
         }
@@ -133,7 +135,7 @@ function post(url, params, loading, config) {
       .post(url, params, config)
       .then(
         (response) => {
-          resolve(response.data)
+          resolve(response && response.data)
         },
         (err) => {
           reject(err && err.data && err.data.message ? err.data.message : '服务器处理异常')
@@ -272,7 +274,8 @@ function toLogin() {
     return
   }
   window.location.href = window.location.origin + '/login'
-  //  router.push({ path: '/login', params: { r: Math.random() } });
+  // console.log('login')
+  //  router.push({ name: 'login' });
 }
 //动态刷新token
 function replaceToken() {
