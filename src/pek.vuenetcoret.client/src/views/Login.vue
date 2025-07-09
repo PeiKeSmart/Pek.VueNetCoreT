@@ -23,15 +23,13 @@
           <div class="input-icon el-icon-mobile"></div>
 
           <input v-focus type="text" v-model="userInfo.verificationCode" placeholder="输入验证码" />
-          <!--  @click="getVierificationCode" -->
-          <div class="code">
-            <img v-show="codeImgSrc != ''" :src="codeImgSrc" />
+          <div class="code" @click="getVierificationCode">
+            <img style="height: 100%; width: 100%;" v-show="codeImgSrc != ''" :src="codeImgSrc" />
           </div>
         </div>
       </div>
       <div class="loging-btn">
-        <!--  @click="login" -->
-        <el-button size="large" :loading="loading" color="#3a6cd1" :dark="true" long>
+        <el-button size="large" :loading="loading" color="#3a6cd1" :dark="true" @click="login" long>
           <span v-if="!loading">登录</span>
           <span v-else>正在登录...</span>
         </el-button>
@@ -104,43 +102,36 @@ export default defineComponent({
       UUID: undefined
     });
 
-    // const getVierificationCode = () => {
-    //   http.get('/api/v1/CaptCha/GetVierificationCode').then((x) => {
-    //     codeImgSrc.value = 'data:image/png;base64,' + x.img;
-    //     userInfo.UUID = x.uuid;
-    //   });
-    // };
-    // getVierificationCode();
-
-    // const getTreeMenu = () => {
-    //   http.post('/api/v1/Menu/getTreeMenu').then((x) => {
-    //     console.log('x => ', x)
-    //   });
-    // };
-    // getTreeMenu();
+    const getVierificationCode = () => {
+      http.get('/CaptCha/GetVierificationCode').then((x) => {
+        codeImgSrc.value = 'data:image/png;base64,' + x.Data.img;
+        userInfo.UUID = x.Data.uuid;
+      });
+    };
+    getVierificationCode();
 
     let appContext = getCurrentInstance().appContext;
     // let $message = appContext.config.globalProperties.$message;
     let router = useRouter();
 
-    // const login = () => {
-    //   if (!userInfo.userName) return $message.error('请输入用户名');
-    //   if (!userInfo.password) return $message.error('请输入密码');
-    //   if (!userInfo.verificationCode) {
-    //     return $message.error('请输入验证码');
-    //   }
-    //   loading.value = true;
-    //   http.post('/api/user/login', userInfo, '正在登录....').then((result) => {
-    //     if (!result.status) {
-    //       loading.value = false;
-    //       getVierificationCode();
-    //       return $message.error(result.message);
-    //     }
-    //     $message.success('登录成功,正在跳转!');
-    //     store.commit('setUserInfo', result.data);
-    //     router.push({ path: '/' });
-    //   });
-    // };
+    const login = () => {
+      if (!userInfo.userName) return $message.error('请输入用户名');
+      if (!userInfo.password) return $message.error('请输入密码');
+      if (!userInfo.verificationCode) {
+        return $message.error('请输入验证码');
+      }
+      loading.value = true;
+      http.post('user/Login', userInfo, '正在登录....').then((result) => {
+        if (!result.status) {
+          loading.value = false;
+          getVierificationCode();
+          return $message.error(result.message);
+        }
+        $message.success('登录成功,正在跳转!');
+        store.commit('setUserInfo', result.data);
+        router.push({ path: '/' });
+      });
+    };
     // const loginPress = (e) => {
     //   if (e.keyCode == 13) {
     //     login();
@@ -152,8 +143,8 @@ export default defineComponent({
     return {
       loading,
       codeImgSrc,
-      // getVierificationCode,
-      // login,
+      getVierificationCode,
+      login,
       userInfo,
       // loginPress,
       // openUrl
@@ -202,7 +193,7 @@ export default defineComponent({
       .code {
         position: relative;
         cursor: pointer;
-        width: 74px;
+        width: 150px;
         padding: 5px 10px 0 0;
       }
 
