@@ -85,7 +85,7 @@ public class UserController : PekControllerBaseX
     [HttpPost, Route("Login")]
     [AllowAnonymous]
     [RateValve(Policy = Policy.Ip, Limit = 60, Duration = 3600)]
-    public IActionResult Login([FromForm] String Name, [FromForm] String PassWord, [FromForm] String Code, [FromForm] String CodeId, [FromHeader] String Lng)
+    public IActionResult Login([FromForm] String Name, [FromForm] String PassWord, [FromForm] String Code, [FromForm] String CodeId, [FromHeader] String? Lng)
     {
         var result = new DGResult();
 
