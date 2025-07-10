@@ -28,6 +28,8 @@ if (!axios.defaults.baseURL.endsWith('/')) {
 let ipAddress = axios.defaults.baseURL
 axios.interceptors.request.use(
   (config) => {
+    console.log('config => ', config)
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'; 
     return config
   },
   (error) => {

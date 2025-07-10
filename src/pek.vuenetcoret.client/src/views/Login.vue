@@ -13,7 +13,7 @@
         <div class="login-text-small">WELCOME TO LOGIN</div>
         <div class="item">
           <div class="input-icon el-icon-user"></div>
-          <input type="text" v-focus v-model="userInfo.userName" placeholder="请输入账号" />
+          <input type="text" v-focus v-model="userInfo.name" placeholder="请输入账号" />
         </div>
         <div class="item">
           <div class="input-icon el-icon-lock"></div>
@@ -22,7 +22,7 @@
         <div class="item">
           <div class="input-icon el-icon-mobile"></div>
 
-          <input v-focus type="text" v-model="userInfo.verificationCode" placeholder="输入验证码" />
+          <input v-focus type="text" v-model="userInfo.code" placeholder="输入验证码" />
           <div class="code" @click="getVierificationCode">
             <img style="height: 100%; width: 100%;" v-show="codeImgSrc != ''" :src="codeImgSrc" />
           </div>
@@ -90,42 +90,50 @@ import {
 import { useRouter, useRoute } from 'vue-router';
 // import store from '../store/index';
 import http from '@/../src/api/http.js';
+import md5 from "js-md5";
 export default defineComponent({
   setup(props, context) {
     // store.commit('clearUserInfo', '');
     const loading = ref(false);
     const codeImgSrc = ref('');
     const userInfo = reactive({
-      userName: '',
+      name: '',
       password: '',
-      verificationCode: '',
-      UUID: undefined
+      code: '',
+      codeId: undefined,
+      lng: 'en'
     });
 
     const getVierificationCode = () => {
       http.get('/CaptCha/GetVierificationCode').then((x) => {
         codeImgSrc.value = 'data:image/png;base64,' + x.Data.img;
-        userInfo.UUID = x.Data.uuid;
+        userInfo.codeId = x.Data.uuid;
       });
     };
     getVierificationCode();
 
     let appContext = getCurrentInstance().appContext;
-    // let $message = appContext.config.globalProperties.$message;
+    let $message = appContext.config.globalProperties.$message;
     let router = useRouter();
 
     const login = () => {
-      if (!userInfo.userName) return $message.error('请输入用户名');
+      if (!userInfo.name) return $message.error('请输入用户名');
       if (!userInfo.password) return $message.error('请输入密码');
-      if (!userInfo.verificationCode) {
+      if (!userInfo.code) {
         return $message.error('请输入验证码');
       }
       loading.value = true;
-      http.post('user/Login', userInfo, '正在登录....').then((result) => {
-        if (!result.status) {
+      const params = {
+        ...userInfo,
+        // password: md5(userInfo.password)
+      }
+      console.log('params ==> ', params)
+      http.post('/api/v1/user/Login', params, '正在登录....').then((result) => {
+        console.log('res => ', result)
+        if (result.Code !== 1) {
           loading.value = false;
           getVierificationCode();
-          return $message.error(result.message);
+          return $message.error(result.Message);
         }
         $message.success('登录成功,正在跳转!');
         store.commit('setUserInfo', result.data);
