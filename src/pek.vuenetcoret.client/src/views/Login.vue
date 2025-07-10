@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="loging-btn">
-        <el-button size="large" :loading="loading" color="#3a6cd1" :dark="true" @click="login" long>
+        <el-button size="large" :loading="loading" color="#3a6cd1" :dark="true" @click="login">
           <span v-if="!loading">登录</span>
           <span v-else>正在登录...</span>
         </el-button>
@@ -127,24 +127,22 @@ export default defineComponent({
         ...userInfo,
         password: md5(userInfo.password).toUpperCase()
       }
-      console.log('params ==> ', params)
       http.post('/api/v1/user/Login', params, '正在登录....').then((result) => {
-        console.log('res => ', result)
         if (result.Code !== 1) {
           loading.value = false;
           getVierificationCode();
           return $message.error(result.Message);
         }
         $message.success('登录成功,正在跳转!');
-        store.commit('setUserInfo', result.data);
+        // store.commit('setUserInfo', result.data);
         router.push({ path: '/' });
       });
     };
-    // const loginPress = (e) => {
-    //   if (e.keyCode == 13) {
-    //     login();
-    //   }
-    // };
+    const loginPress = (e) => {
+      if (e.keyCode == 13) {
+        login();
+      }
+    };
     // const openUrl = (url) => {
     //   window.open(url, '_blank');
     // };
@@ -154,7 +152,7 @@ export default defineComponent({
       getVierificationCode,
       login,
       userInfo,
-      // loginPress,
+      loginPress,
       // openUrl
     };
   },
