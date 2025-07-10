@@ -125,7 +125,7 @@ export default defineComponent({
       loading.value = true;
       const params = {
         ...userInfo,
-        password: md5(userInfo.password)
+        password: md5(userInfo.password).toUpperCase()
       }
       console.log('params ==> ', params)
       http.post('/api/v1/user/Login', params, '正在登录....').then((result) => {
