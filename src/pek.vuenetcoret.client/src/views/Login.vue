@@ -106,7 +106,7 @@ export default defineComponent({
 
     const getVierificationCode = () => {
       http.get('/CaptCha/GetVierificationCode').then((x) => {
-        codeImgSrc.value = 'data:image/png;base64,' + x.Data.img;
+        codeImgSrc.value = 'data:image/gif;base64,' + x.Data.img;
         userInfo.codeId = x.Data.uuid;
       });
     };
@@ -125,7 +125,7 @@ export default defineComponent({
       loading.value = true;
       const params = {
         ...userInfo,
-        // password: md5(userInfo.password)
+        password: md5(userInfo.password)
       }
       console.log('params ==> ', params)
       http.post('/api/v1/user/Login', params, '正在登录....').then((result) => {
