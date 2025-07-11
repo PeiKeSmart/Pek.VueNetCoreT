@@ -149,13 +149,13 @@ public class UserController : PekControllerBaseX
                     return result;
                 }
 
-                //var modelUserEx = UserEx.FindById(ManageProvider.User?.ID ?? -1);
-                //if (modelUserEx == null)
-                //{
-                //    modelUserEx = new UserEx();
-                //    modelUserEx.Id = ManageProvider.User?.ID ?? -1;
-                //}
-                //modelUserEx.Update();
+                var modelUserEx = UserEx.FindById(ManageProvider.User?.ID ?? -1);
+                if (modelUserEx == null)
+                {
+                    modelUserEx = new UserEx();
+                    modelUserEx.Id = ManageProvider.User?.ID ?? -1;
+                }
+                modelUserEx.Update();
 
                 var payload = new Dictionary<String, String>
                 {
