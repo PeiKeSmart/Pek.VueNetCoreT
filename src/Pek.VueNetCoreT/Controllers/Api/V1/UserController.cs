@@ -16,8 +16,10 @@ using Pek.Helpers;
 using Pek.Models;
 using Pek.MVC;
 using Pek.NCube;
+using Pek.NCube.Filters;
 using Pek.Permissions;
 using Pek.Permissions.Identity.JwtBearer;
+using Pek.Security;
 using Pek.Swagger;
 
 using XCode;
@@ -57,6 +59,11 @@ public class UserController : PekControllerBaseX
     public ITokenPayloadStore PayloadStore { get; }
 
     /// <summary>
+    /// 用户Token管理服务
+    /// </summary>
+    private readonly IUserTokenService _userTokenService;
+
+    /// <summary>
     /// 密码服务
     /// </summary>
     private readonly PasswordService? _passwordService;
@@ -68,14 +75,17 @@ public class UserController : PekControllerBaseX
     /// <param name="tokenStore">Jwt令牌存储器</param>
     /// <param name="payloadStore">令牌Payload存储器</param>
     /// <param name="passwordService">密码管理</param>
-    /// <param name="cache"></param>
-    public UserController(ICacheProvider cache, IJsonWebTokenBuilder tokenBuilder, IJsonWebTokenStore tokenStore, ITokenPayloadStore payloadStore, PasswordService passwordService)
+    /// <param name="cache">缓存提供者</param>
+    /// <param name="userTokenService">用户Token管理服务</param>
+    public UserController(ICacheProvider cache, IJsonWebTokenBuilder tokenBuilder, IJsonWebTokenStore tokenStore, ITokenPayloadStore payloadStore, PasswordService passwordService, IUserTokenService userTokenService)
     {
         Cache = cache;
         TokenBuilder = tokenBuilder;
         TokenStore = tokenStore;
         PayloadStore = payloadStore;
         _passwordService = passwordService;
+
+        _userTokenService = userTokenService;
     }
 
     /// <summary>
@@ -85,9 +95,17 @@ public class UserController : PekControllerBaseX
     [HttpPost, Route("Login")]
     [AllowAnonymous]
     [RateValve(Policy = Policy.Ip, Limit = 60, Duration = 3600)]
-    public IActionResult Login([FromForm] String Name, [FromForm] String PassWord, [FromForm] String Code, [FromForm] String CodeId, [FromHeader] String? Lng)
+    [ApiSignature]
+    public IActionResult Login([FromHeader] String Id, [FromForm] String Name, [FromForm] String PassWord, [FromForm] String Code, [FromForm] String CodeId, [FromHeader] String? Lng)
     {
         var result = new DGResult();
+
+        if (Id.IsNullOrWhiteSpace())
+        {
+            result.Message = GetResource("请求标识不能为空", Lng);
+            return result;
+        }
+        result.Id = Id;
 
         try
         {
@@ -195,10 +213,17 @@ public class UserController : PekControllerBaseX
     /// <param name="Lng">语言标识符</param>
     /// <returns></returns>
     [HttpPost, Route("Logout")]
-    //[ApiSignature]
-    public IActionResult Logout([FromForm] String AccessToken, [FromForm] String RefreshToken, [FromHeader] String Lng)
+    [ApiSignature]
+    public IActionResult Logout([FromHeader] String Id, [FromForm] String AccessToken, [FromForm] String RefreshToken, [FromHeader] String Lng)
     {
-        var result = new DvResult();
+        var result = new DGResult();
+
+        if (Id.IsNullOrWhiteSpace())
+        {
+            result.Message = GetResource("请求标识不能为空", Lng);
+            return result;
+        }
+        result.Id = Id;
 
         //var UId = HttpContext.Items["clientId"].SafeString();
         var UId = DHWeb.Identity.GetValue(ClaimTypes.Sid);
@@ -206,7 +231,7 @@ public class UserController : PekControllerBaseX
         var model = UserE.FindByID(UId.ToInt());
         if (model == null)
         {
-            result.message = GetResource("未获取到当前用户数据！", Lng);
+            result.Message = GetResource("未获取到当前用户数据！", Lng);
             return result;
         }
 
@@ -218,7 +243,47 @@ public class UserController : PekControllerBaseX
 
         UserE.WriteLog(LocaleStringResource.GetResource("退出登录", Lng), true, String.Format(LocaleStringResource.GetResource("用户[{0}]退出登录", Lng), model.Name));
 
-        result.code = StateCode.Ok;
+        result.Code = StateCode.Ok;
+        return result;
+    }
+
+    /// <summary>
+    /// 刷新令牌
+    /// </summary>
+    /// <param name="RefreshToken">刷新令牌值</param>
+    /// <param name="Lng">语言标识符</param>
+    /// <param name="Id">请求标识。建议为时间戳</param>
+    /// <returns></returns>
+    /// <remarks>注意：刷新令牌时要注意不要传AccessToken。</remarks>
+    [AllowAnonymous]
+    [HttpPost("RefreshToken")]
+    [ApiSignature]
+    [RateValve(Policy = Policy.Ip, Limit = 60, Duration = 3600)]
+    public IActionResult RefreshToken([FromHeader] String Id, [FromForm] String RefreshToken, [FromHeader] String Lng)
+    {
+        var result = new DGResult();
+
+        if (Id.IsNullOrWhiteSpace())
+        {
+            result.Message = GetResource("请求标识不能为空", Lng);
+            return result;
+        }
+        result.Id = Id;
+
+        var key = $"dh-{RefreshToken}";
+        if (Cache.Cache.ContainsKey(key))
+        {
+            result.Code = StateCode.Ok;
+            result.Data = new { Token = Cache.Cache.Get<JsonWebToken>(key) };
+            return result;
+        }
+
+        var token = TokenBuilder.Refresh(RefreshToken, 10);
+        Cache.Cache.Set(key, token, 10);
+
+        result.Code = StateCode.Ok;
+        result.Data = new { Token = token };
+
         return result;
     }
 }

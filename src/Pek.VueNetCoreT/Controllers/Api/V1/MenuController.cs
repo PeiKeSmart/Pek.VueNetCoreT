@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+using NewLife;
+
 using Pek.Helpers;
 using Pek.Models;
 using Pek.MVC;
@@ -25,9 +27,16 @@ public class MenuController : PekControllerBaseX
     /// </summary>
     /// <returns></returns>
     [HttpGet, HttpPost, Route("GetTreeMenu")]
-    public IActionResult GetTreeMenu()
+    public IActionResult GetTreeMenu([FromHeader] String Id, [FromHeader] String? Lng)
     {
         var result = new DGResult();
+
+        if (Id.IsNullOrWhiteSpace())
+        {
+            result.Message = GetResource("请求标识不能为空", Lng);
+            return result;
+        }
+        result.Id = Id;
 
         result.Code = StateCode.Ok;
 
