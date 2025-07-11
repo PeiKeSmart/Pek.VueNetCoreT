@@ -88,7 +88,6 @@
       </Columns>
       <Indexes>
         <Index Columns="SysMenuId,RoleId" Unique="True" />
-        <Index Columns="SysMenuId,RoleId,UserId" Unique="True" />
       </Indexes>
     </Table>
   </Tables>

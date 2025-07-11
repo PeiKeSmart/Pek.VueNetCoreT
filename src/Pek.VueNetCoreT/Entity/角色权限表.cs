@@ -18,7 +18,6 @@ namespace Pek.Entity;
 [DataObject]
 [Description("角色权限表")]
 [BindIndex("IU_DH_SysRoleAuth_SysMenuId_RoleId", true, "SysMenuId,RoleId")]
-[BindIndex("IU_DH_SysRoleAuth_SysMenuId_RoleId_UserId", true, "SysMenuId,RoleId,UserId")]
 [BindTable("DH_SysRoleAuth", Description = "角色权限表", ConnName = "Pek", DbType = DatabaseType.None)]
 public partial class SysRoleAuth : ISysRoleAuth, IEntity<ISysRoleAuth>
 {
@@ -241,38 +240,6 @@ public partial class SysRoleAuth : ISysRoleAuth, IEntity<ISysRoleAuth>
         if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.SysMenuId == sysMenuId);
 
         return FindAll(_.SysMenuId == sysMenuId);
-    }
-
-    /// <summary>根据菜单编号、角色编号、用户编号查找</summary>
-    /// <param name="sysMenuId">菜单编号</param>
-    /// <param name="roleId">角色编号</param>
-    /// <param name="userId">用户编号</param>
-    /// <returns>实体对象</returns>
-    public static SysRoleAuth? FindBySysMenuIdAndRoleIdAndUserId(Int32 sysMenuId, Int32 roleId, Int32 userId)
-    {
-        if (sysMenuId < 0) return null;
-        if (roleId < 0) return null;
-        if (userId < 0) return null;
-
-        // 实体缓存
-        if (Meta.Session.Count < 1000) return Meta.Cache.Find(e => e.SysMenuId == sysMenuId && e.RoleId == roleId && e.UserId == userId);
-
-        return Find(_.SysMenuId == sysMenuId & _.RoleId == roleId & _.UserId == userId);
-    }
-
-    /// <summary>根据菜单编号、角色编号查找</summary>
-    /// <param name="sysMenuId">菜单编号</param>
-    /// <param name="roleId">角色编号</param>
-    /// <returns>实体列表</returns>
-    public static IList<SysRoleAuth> FindAllBySysMenuIdAndRoleId(Int32 sysMenuId, Int32 roleId)
-    {
-        if (sysMenuId < 0) return [];
-        if (roleId < 0) return [];
-
-        // 实体缓存
-        if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.SysMenuId == sysMenuId && e.RoleId == roleId);
-
-        return FindAll(_.SysMenuId == sysMenuId & _.RoleId == roleId);
     }
     #endregion
 
