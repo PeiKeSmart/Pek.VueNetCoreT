@@ -76,30 +76,30 @@ public partial class SysMenu : CubeEntityBase<SysMenu>
         return true;
     }
 
-    ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-    //[EditorBrowsable(EditorBrowsableState.Never)]
-    //protected override void InitData()
-    //{
-    //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-    //    if (Meta.Session.Count > 0) return;
+    /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    protected override void InitData()
+    {
+        // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
+        if (Meta.Session.Count > 0) return;
 
-    //    if (XTrace.Debug) XTrace.WriteLine("开始初始化SysMenu[菜单基础信息表]数据……");
+        if (XTrace.Debug) XTrace.WriteLine("开始初始化SysMenu[菜单基础信息表]数据……");
 
-    //    var entity = new SysMenu();
-    //    entity.Name = "abc";
-    //    entity.Auth = "abc";
-    //    entity.Icon = "abc";
-    //    entity.Description = "abc";
-    //    entity.Enable = true;
-    //    entity.OrderNo = 0;
-    //    entity.TableName = "abc";
-    //    entity.ParentId = 0;
-    //    entity.Url = "abc";
-    //    entity.MenuType = "abc";
-    //    entity.Insert();
+        var entity = new SysMenu();
+        entity.Name = "abc";
+        entity.Auth = "abc";
+        entity.Icon = "abc";
+        entity.Description = "abc";
+        entity.Enable = true;
+        entity.OrderNo = 0;
+        entity.TableName = "abc";
+        entity.ParentId = 0;
+        entity.Url = "abc";
+        entity.MenuType = 0;
+        entity.Insert();
 
-    //    if (XTrace.Debug) XTrace.WriteLine("完成初始化SysMenu[菜单基础信息表]数据！");
-    //}
+        if (XTrace.Debug) XTrace.WriteLine("完成初始化SysMenu[菜单基础信息表]数据！");
+    }
 
     ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
     ///// <returns></returns>
@@ -156,6 +156,25 @@ public partial class SysMenu : CubeEntityBase<SysMenu>
     {
         var model = new SysMenu();
         model.Copy(this);
+
+        return model;
+    }
+
+    public static SysMenu AddMenu(String Name, String Auth, String Icon, String Description, Boolean Enable, Int32 OrderNo, String TableName, Int32 ParentId, String Url, Int32 MenuType)
+    {
+        var model = new SysMenu
+        {
+            Name = Name,
+            Auth = Auth,
+            Icon = Icon,
+            Description = Description,
+            Enable = Enable,
+            OrderNo = OrderNo,
+            TableName = TableName,
+            ParentId = ParentId,
+            Url = Url,
+            MenuType = MenuType
+        };
 
         return model;
     }

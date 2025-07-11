@@ -56,7 +56,7 @@
         <Column Name="TableName" DataType="String" Description="关联表名" />
         <Column Name="ParentId" DataType="Int32" Description="父级菜单ID" />
         <Column Name="Url" DataType="String" RawType="text" Length="0" Description="菜单链接" />
-        <Column Name="MenuType" DataType="String" Description="菜单类型：0=PC端，1=移动端" />
+        <Column Name="MenuType" DataType="Int32" Description="菜单类型：0=PC端，1=移动端" />
         <Column Name="CreateUser" DataType="String" Description="创建者" />
         <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
         <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />

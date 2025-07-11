@@ -42,7 +42,7 @@ public partial class SysMenuModel
     public String? Url { get; set; }
 
     /// <summary>菜单类型：0=PC端，1=移动端</summary>
-    public String? MenuType { get; set; }
+    public Int32 MenuType { get; set; }
 
     /// <summary>创建者</summary>
     public String? CreateUser { get; set; }
