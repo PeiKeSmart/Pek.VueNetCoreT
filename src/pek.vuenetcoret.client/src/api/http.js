@@ -28,8 +28,10 @@ if (!axios.defaults.baseURL.endsWith('/')) {
 let ipAddress = axios.defaults.baseURL
 axios.interceptors.request.use(
   (config) => {
-    console.log('config => ', config)
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'; 
+    config.headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': getToken()
+    }
     return config
   },
   (error) => {
@@ -46,20 +48,18 @@ axios.interceptors.response.use(
     return Promise.resolve(res)
   },
   (error) => {
-    console.log('error => ', error)
     closeLoading()
     let httpMessage = ''
     if (error.response) {
       if (error.response.status == '401') {
         if (error.response.data && error.response.data.Code == 2) {
-          console.log('123131231')
-          // if (!localStorage.getItem('user')) {
-            // Message.error({
-            //     showClose: true,
-            //     message: '登陆已过期',
-            //     type: 'error'
-            // });
-          // }
+          if (!localStorage.getItem('user')) {
+            Message.error({
+                showClose: true,
+                message: '登陆已过期',
+                type: 'error'
+            });
+          }
           toLogin()
           return
         }
@@ -158,7 +158,7 @@ function get(url, param, loading, config) {
       .get(url, config)
       .then(
         (response) => {
-          resolve(response.data)
+          resolve(response && response.data)
         },
         (err) => {
           reject(err)

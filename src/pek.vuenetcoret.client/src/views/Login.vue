@@ -88,7 +88,7 @@ import {
   getCurrentInstance
 } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-// import store from '../store/index';
+import store from '../store/index';
 import http from '@/../src/api/http.js';
 import md5 from "js-md5";
 export default defineComponent({
@@ -134,7 +134,7 @@ export default defineComponent({
           return $message.error(result.Message);
         }
         $message.success('登录成功,正在跳转!');
-        // store.commit('setUserInfo', result.data);
+        store.commit('setUserInfo', result.Data);
         router.push({ path: '/' });
       });
     };

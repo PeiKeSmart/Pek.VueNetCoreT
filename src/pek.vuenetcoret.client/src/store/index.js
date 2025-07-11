@@ -74,7 +74,7 @@ export default createStore({
     getToken: (state) => () => {
       getUserInfo(state);
       if (state.userInfo) {
-        return 'Bearer ' + state.userInfo.token;
+        return 'Bearer ' + state.userInfo.Token.AccessToken;
       }
       return '';
     },
