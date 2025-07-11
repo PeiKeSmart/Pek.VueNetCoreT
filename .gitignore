@@ -28,3 +28,4 @@ bld/
 /Pek.VueNetCoreT.Server/Properties/PublishProfiles
 /src/Pek.VueNetCoreT.Server/.config
 /pek.vuenetcoret.client/node_modules
+/src/Pek.VueNetCoreT/Entity/Config/XCode.config

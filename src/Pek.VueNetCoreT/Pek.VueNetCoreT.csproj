@@ -9,7 +9,14 @@
     <SpaRoot>..\pek.vuenetcoret.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:53007</SpaProxyServerUrl>
-  </PropertyGroup>  
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entity\Config\**" />
+    <Content Remove="Entity\Config\**" />
+    <EmbeddedResource Remove="Entity\Config\**" />
+    <None Remove="Entity\Config\**" />
+  </ItemGroup>  
 
   <ItemGroup>
     <PackageReference Include="DH.NRedis.Extensions" Version="4.13.2025.701-beta0850" />
