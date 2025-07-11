@@ -1,28 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Script.Serialization;
-using System.Xml.Serialization;
+﻿using System.ComponentModel;
+
 using NewLife;
 using NewLife.Data;
 using NewLife.Log;
-using NewLife.Model;
-using NewLife.Reflection;
-using NewLife.Threading;
-using NewLife.Web;
+
 using XCode;
-using XCode.Cache;
-using XCode.Configuration;
-using XCode.DataAccessLayer;
-using XCode.Membership;
-using XCode.Shards;
 
 namespace Pek.Entity;
 
@@ -84,6 +66,8 @@ public partial class SysMenu : CubeEntityBase<SysMenu>
         if (Meta.Session.Count > 0) return;
 
         if (XTrace.Debug) XTrace.WriteLine("开始初始化SysMenu[菜单基础信息表]数据……");
+
+        AddMenu(2, "用户管理", "[{\"text\":\"查询\",\"value\":\"Search\"}]", "el-icon-user", null, true, 9600, ".", 61, null, 0);
 
         var entity = new SysMenu();
         entity.Name = "abc";
@@ -160,10 +144,11 @@ public partial class SysMenu : CubeEntityBase<SysMenu>
         return model;
     }
 
-    public static SysMenu AddMenu(String Name, String Auth, String Icon, String Description, Boolean Enable, Int32 OrderNo, String TableName, Int32 ParentId, String Url, Int32 MenuType)
+    public static SysMenu AddMenu(Int32 Id, String Name, String Auth, String Icon, String? Description, Boolean Enable, Int32 OrderNo, String TableName, Int32 ParentId, String? Url, Int32 MenuType)
     {
         var model = new SysMenu
         {
+            Id = Id,
             Name = Name,
             Auth = Auth,
             Icon = Icon,
