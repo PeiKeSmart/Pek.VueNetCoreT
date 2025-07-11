@@ -69,19 +69,6 @@ public partial class SysMenu : CubeEntityBase<SysMenu>
 
         AddMenu(2, "用户管理", "[{\"text\":\"查询\",\"value\":\"Search\"}]", "el-icon-user", null, true, 9600, ".", 61, null, 0);
 
-        var entity = new SysMenu();
-        entity.Name = "abc";
-        entity.Auth = "abc";
-        entity.Icon = "abc";
-        entity.Description = "abc";
-        entity.Enable = true;
-        entity.OrderNo = 0;
-        entity.TableName = "abc";
-        entity.ParentId = 0;
-        entity.Url = "abc";
-        entity.MenuType = 0;
-        entity.Insert();
-
         if (XTrace.Debug) XTrace.WriteLine("完成初始化SysMenu[菜单基础信息表]数据！");
     }
 
