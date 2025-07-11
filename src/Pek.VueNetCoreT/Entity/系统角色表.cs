@@ -13,16 +13,15 @@ using XCode.DataAccessLayer;
 
 namespace Pek.Entity;
 
-/// <summary>菜单基础信息表</summary>
+/// <summary>系统角色表</summary>
 [Serializable]
 [DataObject]
-[Description("菜单基础信息表")]
-[BindIndex("IX_DH_SysMenu_Name", false, "Name")]
-[BindIndex("IX_DH_SysMenu_Enable", false, "Enable")]
-[BindIndex("IX_DH_SysMenu_ParentId", false, "ParentId")]
-[BindIndex("IX_DH_SysMenu_MenuType", false, "MenuType")]
-[BindTable("DH_SysMenu", Description = "菜单基础信息表", ConnName = "Pek", DbType = DatabaseType.None)]
-public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
+[Description("系统角色表")]
+[BindIndex("IX_DH_SysRole_Name", false, "Name")]
+[BindIndex("IX_DH_SysRole_ParentId", false, "ParentId")]
+[BindIndex("IX_DH_SysRole_DeleteBy", false, "DeleteBy")]
+[BindTable("DH_SysRole", Description = "系统角色表", ConnName = "Pek", DbType = DatabaseType.None)]
+public partial class SysRole : ISysRole, IEntity<ISysRole>
 {
     #region 属性
     private Int32 _Id;
@@ -41,29 +40,21 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
     [BindColumn("Name", "菜单名称", "", Master = true)]
     public String Name { get => _Name; set { if (OnPropertyChanging("Name", value)) { _Name = value; OnPropertyChanged("Name"); } } }
 
-    private String? _Auth;
-    /// <summary>权限配置。JSON格式存储Actions</summary>
-    [DisplayName("权限配置")]
-    [Description("权限配置。JSON格式存储Actions")]
-    [DataObjectField(false, false, true, 0)]
-    [BindColumn("Auth", "权限配置。JSON格式存储Actions", "text")]
-    public String? Auth { get => _Auth; set { if (OnPropertyChanging("Auth", value)) { _Auth = value; OnPropertyChanged("Auth"); } } }
-
-    private String? _Icon;
-    /// <summary>图标</summary>
-    [DisplayName("图标")]
-    [Description("图标")]
+    private String? _DeptName;
+    /// <summary>部门名称</summary>
+    [DisplayName("部门名称")]
+    [Description("部门名称")]
     [DataObjectField(false, false, true, 50)]
-    [BindColumn("Icon", "图标", "")]
-    public String? Icon { get => _Icon; set { if (OnPropertyChanging("Icon", value)) { _Icon = value; OnPropertyChanged("Icon"); } } }
+    [BindColumn("DeptName", "部门名称", "")]
+    public String? DeptName { get => _DeptName; set { if (OnPropertyChanging("DeptName", value)) { _DeptName = value; OnPropertyChanged("DeptName"); } } }
 
-    private String? _Description;
-    /// <summary>说明</summary>
-    [DisplayName("说明")]
-    [Description("说明")]
-    [DataObjectField(false, false, true, 200)]
-    [BindColumn("Description", "说明", "")]
-    public String? Description { get => _Description; set { if (OnPropertyChanging("Description", value)) { _Description = value; OnPropertyChanged("Description"); } } }
+    private Int32 _DeptId;
+    /// <summary>部门编号</summary>
+    [DisplayName("部门编号")]
+    [Description("部门编号")]
+    [DataObjectField(false, false, false, 0)]
+    [BindColumn("DeptId", "部门编号", "")]
+    public Int32 DeptId { get => _DeptId; set { if (OnPropertyChanging("DeptId", value)) { _DeptId = value; OnPropertyChanged("DeptId"); } } }
 
     private Boolean _Enable;
     /// <summary>是否启用</summary>
@@ -81,37 +72,21 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
     [BindColumn("OrderNo", "排序号", "")]
     public Int32 OrderNo { get => _OrderNo; set { if (OnPropertyChanging("OrderNo", value)) { _OrderNo = value; OnPropertyChanged("OrderNo"); } } }
 
-    private String? _TableName;
-    /// <summary>关联表名</summary>
-    [DisplayName("关联表名")]
-    [Description("关联表名")]
-    [DataObjectField(false, false, true, 50)]
-    [BindColumn("TableName", "关联表名", "")]
-    public String? TableName { get => _TableName; set { if (OnPropertyChanging("TableName", value)) { _TableName = value; OnPropertyChanged("TableName"); } } }
-
     private Int32 _ParentId;
-    /// <summary>父级菜单ID</summary>
-    [DisplayName("父级菜单ID")]
-    [Description("父级菜单ID")]
+    /// <summary>父级角色ID</summary>
+    [DisplayName("父级角色ID")]
+    [Description("父级角色ID")]
     [DataObjectField(false, false, false, 0)]
-    [BindColumn("ParentId", "父级菜单ID", "")]
+    [BindColumn("ParentId", "父级角色ID", "")]
     public Int32 ParentId { get => _ParentId; set { if (OnPropertyChanging("ParentId", value)) { _ParentId = value; OnPropertyChanged("ParentId"); } } }
 
-    private String? _Url;
-    /// <summary>菜单链接</summary>
-    [DisplayName("菜单链接")]
-    [Description("菜单链接")]
-    [DataObjectField(false, false, true, 0)]
-    [BindColumn("Url", "菜单链接", "text")]
-    public String? Url { get => _Url; set { if (OnPropertyChanging("Url", value)) { _Url = value; OnPropertyChanged("Url"); } } }
-
-    private Int32 _MenuType;
-    /// <summary>菜单类型：0=PC端，1=移动端</summary>
-    [DisplayName("菜单类型")]
-    [Description("菜单类型：0=PC端，1=移动端")]
-    [DataObjectField(false, false, false, 0)]
-    [BindColumn("MenuType", "菜单类型：0=PC端，1=移动端", "")]
-    public Int32 MenuType { get => _MenuType; set { if (OnPropertyChanging("MenuType", value)) { _MenuType = value; OnPropertyChanged("MenuType"); } } }
+    private String? _DeleteBy;
+    /// <summary>删除该角色的用户（软删除标记）</summary>
+    [DisplayName("删除该角色的用户（软删除标记）")]
+    [Description("删除该角色的用户（软删除标记）")]
+    [DataObjectField(false, false, true, 50)]
+    [BindColumn("DeleteBy", "删除该角色的用户（软删除标记）", "")]
+    public String? DeleteBy { get => _DeleteBy; set { if (OnPropertyChanging("DeleteBy", value)) { _DeleteBy = value; OnPropertyChanged("DeleteBy"); } } }
 
     private String? _CreateUser;
     /// <summary>创建者</summary>
@@ -181,19 +156,16 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
     #region 拷贝
     /// <summary>拷贝模型对象</summary>
     /// <param name="model">模型</param>
-    public void Copy(ISysMenu model)
+    public void Copy(ISysRole model)
     {
         Id = model.Id;
         Name = model.Name;
-        Auth = model.Auth;
-        Icon = model.Icon;
-        Description = model.Description;
+        DeptName = model.DeptName;
+        DeptId = model.DeptId;
         Enable = model.Enable;
         OrderNo = model.OrderNo;
-        TableName = model.TableName;
         ParentId = model.ParentId;
-        Url = model.Url;
-        MenuType = model.MenuType;
+        DeleteBy = model.DeleteBy;
         CreateUser = model.CreateUser;
         CreateUserID = model.CreateUserID;
         CreateTime = model.CreateTime;
@@ -215,15 +187,12 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         {
             "Id" => _Id,
             "Name" => _Name,
-            "Auth" => _Auth,
-            "Icon" => _Icon,
-            "Description" => _Description,
+            "DeptName" => _DeptName,
+            "DeptId" => _DeptId,
             "Enable" => _Enable,
             "OrderNo" => _OrderNo,
-            "TableName" => _TableName,
             "ParentId" => _ParentId,
-            "Url" => _Url,
-            "MenuType" => _MenuType,
+            "DeleteBy" => _DeleteBy,
             "CreateUser" => _CreateUser,
             "CreateUserID" => _CreateUserID,
             "CreateTime" => _CreateTime,
@@ -240,15 +209,12 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
             {
                 case "Id": _Id = value.ToInt(); break;
                 case "Name": _Name = Convert.ToString(value); break;
-                case "Auth": _Auth = Convert.ToString(value); break;
-                case "Icon": _Icon = Convert.ToString(value); break;
-                case "Description": _Description = Convert.ToString(value); break;
+                case "DeptName": _DeptName = Convert.ToString(value); break;
+                case "DeptId": _DeptId = value.ToInt(); break;
                 case "Enable": _Enable = value.ToBoolean(); break;
                 case "OrderNo": _OrderNo = value.ToInt(); break;
-                case "TableName": _TableName = Convert.ToString(value); break;
                 case "ParentId": _ParentId = value.ToInt(); break;
-                case "Url": _Url = Convert.ToString(value); break;
-                case "MenuType": _MenuType = value.ToInt(); break;
+                case "DeleteBy": _DeleteBy = Convert.ToString(value); break;
                 case "CreateUser": _CreateUser = Convert.ToString(value); break;
                 case "CreateUserID": _CreateUserID = value.ToInt(); break;
                 case "CreateTime": _CreateTime = value.ToDateTime(); break;
@@ -270,7 +236,7 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
     /// <summary>根据编号查找</summary>
     /// <param name="id">编号</param>
     /// <returns>实体对象</returns>
-    public static SysMenu? FindById(Int32 id)
+    public static SysRole? FindById(Int32 id)
     {
         if (id < 0) return null;
 
@@ -286,7 +252,7 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
     /// <summary>根据菜单名称查找</summary>
     /// <param name="name">菜单名称</param>
     /// <returns>实体列表</returns>
-    public static IList<SysMenu> FindAllByName(String name)
+    public static IList<SysRole> FindAllByName(String name)
     {
         if (name.IsNullOrEmpty()) return [];
 
@@ -296,10 +262,10 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         return FindAll(_.Name == name);
     }
 
-    /// <summary>根据父级菜单ID查找</summary>
-    /// <param name="parentId">父级菜单ID</param>
+    /// <summary>根据父级角色ID查找</summary>
+    /// <param name="parentId">父级角色ID</param>
     /// <returns>实体列表</returns>
-    public static IList<SysMenu> FindAllByParentId(Int32 parentId)
+    public static IList<SysRole> FindAllByParentId(Int32 parentId)
     {
         if (parentId < 0) return [];
 
@@ -309,22 +275,22 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         return FindAll(_.ParentId == parentId);
     }
 
-    /// <summary>根据菜单类型查找</summary>
-    /// <param name="menuType">菜单类型</param>
+    /// <summary>根据删除该角色的用户（软删除标记）查找</summary>
+    /// <param name="deleteBy">删除该角色的用户（软删除标记）</param>
     /// <returns>实体列表</returns>
-    public static IList<SysMenu> FindAllByMenuType(Int32 menuType)
+    public static IList<SysRole> FindAllByDeleteBy(String? deleteBy)
     {
-        if (menuType < 0) return [];
+        if (deleteBy == null) return [];
 
         // 实体缓存
-        if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.MenuType == menuType);
+        if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.DeleteBy.EqualIgnoreCase(deleteBy));
 
-        return FindAll(_.MenuType == menuType);
+        return FindAll(_.DeleteBy == deleteBy);
     }
     #endregion
 
     #region 字段名
-    /// <summary>取得菜单基础信息表字段信息的快捷方式</summary>
+    /// <summary>取得系统角色表字段信息的快捷方式</summary>
     public partial class _
     {
         /// <summary>编号</summary>
@@ -333,14 +299,11 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         /// <summary>菜单名称</summary>
         public static readonly Field Name = FindByName("Name");
 
-        /// <summary>权限配置。JSON格式存储Actions</summary>
-        public static readonly Field Auth = FindByName("Auth");
+        /// <summary>部门名称</summary>
+        public static readonly Field DeptName = FindByName("DeptName");
 
-        /// <summary>图标</summary>
-        public static readonly Field Icon = FindByName("Icon");
-
-        /// <summary>说明</summary>
-        public static readonly Field Description = FindByName("Description");
+        /// <summary>部门编号</summary>
+        public static readonly Field DeptId = FindByName("DeptId");
 
         /// <summary>是否启用</summary>
         public static readonly Field Enable = FindByName("Enable");
@@ -348,17 +311,11 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         /// <summary>排序号</summary>
         public static readonly Field OrderNo = FindByName("OrderNo");
 
-        /// <summary>关联表名</summary>
-        public static readonly Field TableName = FindByName("TableName");
-
-        /// <summary>父级菜单ID</summary>
+        /// <summary>父级角色ID</summary>
         public static readonly Field ParentId = FindByName("ParentId");
 
-        /// <summary>菜单链接</summary>
-        public static readonly Field Url = FindByName("Url");
-
-        /// <summary>菜单类型：0=PC端，1=移动端</summary>
-        public static readonly Field MenuType = FindByName("MenuType");
+        /// <summary>删除该角色的用户（软删除标记）</summary>
+        public static readonly Field DeleteBy = FindByName("DeleteBy");
 
         /// <summary>创建者</summary>
         public static readonly Field CreateUser = FindByName("CreateUser");
@@ -387,7 +344,7 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         static Field FindByName(String name) => Meta.Table.FindByName(name);
     }
 
-    /// <summary>取得菜单基础信息表字段名称的快捷方式</summary>
+    /// <summary>取得系统角色表字段名称的快捷方式</summary>
     public partial class __
     {
         /// <summary>编号</summary>
@@ -396,14 +353,11 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         /// <summary>菜单名称</summary>
         public const String Name = "Name";
 
-        /// <summary>权限配置。JSON格式存储Actions</summary>
-        public const String Auth = "Auth";
+        /// <summary>部门名称</summary>
+        public const String DeptName = "DeptName";
 
-        /// <summary>图标</summary>
-        public const String Icon = "Icon";
-
-        /// <summary>说明</summary>
-        public const String Description = "Description";
+        /// <summary>部门编号</summary>
+        public const String DeptId = "DeptId";
 
         /// <summary>是否启用</summary>
         public const String Enable = "Enable";
@@ -411,17 +365,11 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
         /// <summary>排序号</summary>
         public const String OrderNo = "OrderNo";
 
-        /// <summary>关联表名</summary>
-        public const String TableName = "TableName";
-
-        /// <summary>父级菜单ID</summary>
+        /// <summary>父级角色ID</summary>
         public const String ParentId = "ParentId";
 
-        /// <summary>菜单链接</summary>
-        public const String Url = "Url";
-
-        /// <summary>菜单类型：0=PC端，1=移动端</summary>
-        public const String MenuType = "MenuType";
+        /// <summary>删除该角色的用户（软删除标记）</summary>
+        public const String DeleteBy = "DeleteBy";
 
         /// <summary>创建者</summary>
         public const String CreateUser = "CreateUser";
