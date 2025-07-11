@@ -76,27 +76,26 @@ public partial class SysRole : CubeEntityBase<SysRole>
         return true;
     }
 
-    ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-    //[EditorBrowsable(EditorBrowsableState.Never)]
-    //protected override void InitData()
-    //{
-    //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-    //    if (Meta.Session.Count > 0) return;
+    /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    protected override void InitData()
+    {
+        // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
+        if (Meta.Session.Count > 0) return;
 
-    //    if (XTrace.Debug) XTrace.WriteLine("开始初始化SysRole[系统角色表]数据……");
+        if (XTrace.Debug) XTrace.WriteLine("开始初始化SysRole[系统角色表]数据……");
 
-    //    var entity = new SysRole();
-    //    entity.Name = "abc";
-    //    entity.DeptName = "abc";
-    //    entity.DeptId = 0;
-    //    entity.Enable = true;
-    //    entity.OrderNo = 0;
-    //    entity.ParentId = 0;
-    //    entity.DeleteBy = "abc";
-    //    entity.Insert();
+        var entity = new SysRole();
+        entity.Name = "超级管理员";
+        entity.DeptName = "无";
+        entity.DeptId = 0;
+        entity.Enable = true;
+        entity.OrderNo = 0;
+        entity.ParentId = 0;
+        entity.Insert();
 
-    //    if (XTrace.Debug) XTrace.WriteLine("完成初始化SysRole[系统角色表]数据！");
-    //}
+        if (XTrace.Debug) XTrace.WriteLine("完成初始化SysRole[系统角色表]数据！");
+    }
 
     ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
     ///// <returns></returns>
