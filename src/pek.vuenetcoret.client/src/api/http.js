@@ -1,9 +1,9 @@
 import axios from 'axios'
 import store from '../store/index'
-import { useRouter, useRoute } from 'vue-router'
+// import { useRouter, useRoute } from 'vue-router'
 import { nextTick } from 'vue'
 import { SHA1 } from 'crypto-js'
-const router = useRouter()
+// const router = useRouter()
 axios.defaults.timeout = 50000
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
@@ -30,11 +30,19 @@ let ipAddress = axios.defaults.baseURL
 axios.interceptors.request.use(
   (config) => {
     console.log('getSignature() => ', getSignature())
-    config.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': getToken(),
-      ...getSignature()
+    // 不需要签名的接口
+    const notNeedSignatureArr = ['/CaptCha/GetVierificationCode']
+    if (notNeedSignatureArr.includes(config.url)) {
+      return config
+    } else {
+      config.headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': getToken(),
+        ...getSignature()
+      }
     }
+    // if ()
+
     return config
   },
   (error) => {
@@ -105,7 +113,7 @@ function getSignature() {
   let json = {
     timestamp: getTimestamp(),
     nonce: mtRand(100000, 999999),
-    appkey: 'PjWvzYsQwjUgFEBU',
+    appkey: 'tRdUsTfy4VINPOi9',
     id: new Date().getTime().toString()
   }
   let s = [json.timestamp.toString(), json.nonce.toString(), json.appkey]
