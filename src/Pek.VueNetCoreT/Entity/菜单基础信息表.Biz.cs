@@ -226,6 +226,31 @@ public partial class SysMenu : CubeEntityBase<SysMenu>
         return model;
     }
 
+    /// <summary>获取全部</summary>
+    /// <returns>实体列表</returns>
+    public static IList<SysMenu> GetAll(String? selects = null)
+    {
+        // 实体缓存
+        if (Meta.Session.Count < 1000) return Meta.Cache.Entities;
+
+        return FindAll(null, null, selects);
+    }
+
+    /// <summary>
+    /// 添加菜单
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <param name="Name"></param>
+    /// <param name="Auth"></param>
+    /// <param name="Icon"></param>
+    /// <param name="Description"></param>
+    /// <param name="Enable"></param>
+    /// <param name="OrderNo"></param>
+    /// <param name="TableName"></param>
+    /// <param name="ParentId"></param>
+    /// <param name="Url"></param>
+    /// <param name="MenuType"></param>
+    /// <returns></returns>
     public static SysMenu AddMenu(Int32 Id, String Name, String Auth, String Icon, String? Description, Boolean Enable, Int32 OrderNo, String TableName, Int32 ParentId, String? Url, Int32 MenuType)
     {
         var model = new SysMenu

@@ -17,7 +17,7 @@ namespace Pek.Entity;
 [Serializable]
 [DataObject]
 [Description("用户扩展表")]
-[BindTable("DH_UserEx", Description = "用户扩展表", ConnName = "DH", DbType = DatabaseType.None)]
+[BindTable("DH_UserEx", Description = "用户扩展表", ConnName = "Pek", DbType = DatabaseType.None)]
 public partial class UserEx : IUserEx, IEntity<IUserEx>
 {
     #region 属性

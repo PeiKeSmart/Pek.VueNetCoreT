@@ -18,7 +18,7 @@ namespace Pek.Entity;
 [DataObject]
 [Description("菜单基础信息表")]
 [BindIndex("IX_DH_SysMenu_Name", false, "Name")]
-[BindTable("DH_SysMenu", Description = "菜单基础信息表", ConnName = "DH", DbType = DatabaseType.None)]
+[BindTable("DH_SysMenu", Description = "菜单基础信息表", ConnName = "Pek", DbType = DatabaseType.None)]
 public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
 {
     #region 属性
