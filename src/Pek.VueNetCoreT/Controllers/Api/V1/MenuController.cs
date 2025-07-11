@@ -87,6 +87,10 @@ public class MenuController : PekControllerBaseX
                 };
             });
         }
+        else // 非超管用户
+        {
+
+        }
 
         result.Code = StateCode.Ok;
 
