@@ -18,7 +18,7 @@ namespace Pek.Entity;
 [DataObject]
 [Description("菜单基础信息表")]
 [BindIndex("IX_DH_SysMenu_Name", false, "Name")]
-[BindTable("DH_SysMenu", Description = "菜单基础信息表", ConnName = "DH", DbType = DatabaseType.None)]
+[BindTable("DH_SysMenu", Description = "菜单基础信息表", ConnName = "Pek", DbType = DatabaseType.None)]
 public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
 {
     #region 属性
@@ -102,13 +102,13 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
     [BindColumn("Url", "菜单链接", "text")]
     public String? Url { get => _Url; set { if (OnPropertyChanging("Url", value)) { _Url = value; OnPropertyChanged("Url"); } } }
 
-    private String? _MenuType;
+    private Int32 _MenuType;
     /// <summary>菜单类型：0=PC端，1=移动端</summary>
     [DisplayName("菜单类型")]
     [Description("菜单类型：0=PC端，1=移动端")]
-    [DataObjectField(false, false, true, 50)]
+    [DataObjectField(false, false, false, 0)]
     [BindColumn("MenuType", "菜单类型：0=PC端，1=移动端", "")]
-    public String? MenuType { get => _MenuType; set { if (OnPropertyChanging("MenuType", value)) { _MenuType = value; OnPropertyChanged("MenuType"); } } }
+    public Int32 MenuType { get => _MenuType; set { if (OnPropertyChanging("MenuType", value)) { _MenuType = value; OnPropertyChanged("MenuType"); } } }
 
     private String? _CreateUser;
     /// <summary>创建者</summary>
@@ -245,7 +245,7 @@ public partial class SysMenu : ISysMenu, IEntity<ISysMenu>
                 case "TableName": _TableName = Convert.ToString(value); break;
                 case "ParentId": _ParentId = value.ToInt(); break;
                 case "Url": _Url = Convert.ToString(value); break;
-                case "MenuType": _MenuType = Convert.ToString(value); break;
+                case "MenuType": _MenuType = value.ToInt(); break;
                 case "CreateUser": _CreateUser = Convert.ToString(value); break;
                 case "CreateUserID": _CreateUserID = value.ToInt(); break;
                 case "CreateTime": _CreateTime = value.ToDateTime(); break;

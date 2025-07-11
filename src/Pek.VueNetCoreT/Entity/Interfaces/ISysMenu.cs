@@ -42,7 +42,7 @@ public partial interface ISysMenu
     String? Url { get; set; }
 
     /// <summary>菜单类型：0=PC端，1=移动端</summary>
-    String? MenuType { get; set; }
+    Int32 MenuType { get; set; }
 
     /// <summary>创建者</summary>
     String? CreateUser { get; set; }
