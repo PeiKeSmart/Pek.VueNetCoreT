@@ -70,5 +70,26 @@
         <Index Columns="Name" />
       </Indexes>
     </Table>
+    <Table Name="SysRoleAuth" TableName="DH_SysRoleAuth" Description="角色权限表" IgnoreNameCase="False">
+      <Columns>
+        <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+        <Column Name="AuthValue" DataType="String" RawType="text" Length="0" Description="存储具体的权限操作。如Search,Add,Delete,Update,Import,Export,Upload,Audit等，多个权限用逗号分隔" />
+        <Column Name="SysMenuId" DataType="Int32" Description="菜单编号" />
+        <Column Name="RoleId" DataType="Int32" Description="角色编号" />
+        <Column Name="UserId" DataType="Int32" Description="用户编号" />
+        <Column Name="CreateUser" DataType="String" Description="创建者" />
+        <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
+        <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
+        <Column Name="CreateIP" DataType="String" Description="创建地址" />
+        <Column Name="UpdateUser" DataType="String" Description="更新者" />
+        <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
+        <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
+        <Column Name="UpdateIP" DataType="String" Description="更新地址" />
+      </Columns>
+      <Indexes>
+        <Index Columns="SysMenuId,RoleId" Unique="True" />
+        <Index Columns="SysMenuId,RoleId,UserId" Unique="True" />
+      </Indexes>
+    </Table>
   </Tables>
 </EntityModel>
