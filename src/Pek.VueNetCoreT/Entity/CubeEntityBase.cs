@@ -14,7 +14,7 @@ namespace Pek.Entity;
 
 /// <summary>实体基类</summary>
 /// <typeparam name="TEntity"></typeparam>
-public class CubeEntityBase<TEntity> : Entity<TEntity>, BasePekModel where TEntity : DHEntityBase<TEntity>, new()
+public class CubeEntityBase<TEntity> : Entity<TEntity>, BasePekModel where TEntity : CubeEntityBase<TEntity>, new()
 {
     /// <summary>
     /// 实例化
