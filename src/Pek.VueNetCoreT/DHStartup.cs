@@ -33,6 +33,8 @@ public class DHStartup : IPekStartup
     /// <param name="webHostEnvironment"></param>
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment? webHostEnvironment)
     {
+        DHSetting.Current.IsCheckApiSignature = true;
+        DHSetting.Current.Save();
     }
 
     /// <summary>
