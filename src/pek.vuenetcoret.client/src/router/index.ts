@@ -131,16 +131,16 @@ router.afterEach((to, from) => {
   store.dispatch("onLoading", false);
 })
 router.onError((error) => {
-  const targetPath = router.currentRoute.value.matched;
-  try {
-    console.log(error.message);
-    if (process.env.NODE_ENV == 'development') {
-      alert(error.message)
-    }
-    localStorage.setItem("route_error", error.message)
-  } catch (e) {
+  // const targetPath = router.currentRoute.value.matched;
+  // try {
+  //   console.log(error.message);
+  //   if (process.env.NODE_ENV == 'development') {
+  //     alert(error.message)
+  //   }
+  //   localStorage.setItem("route_error", error.message)
+  // } catch (e) {
 
-  }
-  window.location.href = '/'
+  // }
+  // window.location.href = '/'
 });
 export default router
