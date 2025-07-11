@@ -11,6 +11,7 @@ using NewLife.Caching;
 using NewLife.Cube.Services;
 using NewLife.Log;
 
+using Pek.Entity;
 using Pek.Exceptions;
 using Pek.Helpers;
 using Pek.Models;
