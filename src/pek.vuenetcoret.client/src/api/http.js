@@ -2,6 +2,7 @@ import axios from 'axios'
 import store from '../store/index'
 import { useRouter, useRoute } from 'vue-router'
 import { nextTick } from 'vue'
+import sign from '../utils/sign.js'
 const router = useRouter()
 axios.defaults.timeout = 50000
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
@@ -28,6 +29,9 @@ if (!axios.defaults.baseURL.endsWith('/')) {
 let ipAddress = axios.defaults.baseURL
 axios.interceptors.request.use(
   (config) => {
+    let json = {}
+    json = sign.sign(json, 'HlkTech20200429');
+    console.log('json => ', json)
     config.headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': getToken()
