@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+
 using DH.Entity;
 
 using NewLife;
@@ -13,12 +14,12 @@ namespace Pek.Entity;
 
 /// <summary>实体基类</summary>
 /// <typeparam name="TEntity"></typeparam>
-public class DHEntityBase<TEntity> : Entity<TEntity>, BasePekModel where TEntity : DHEntityBase<TEntity>, new()
+public class CubeEntityBase<TEntity> : Entity<TEntity>, BasePekModel where TEntity : DHEntityBase<TEntity>, new()
 {
     /// <summary>
     /// 实例化
     /// </summary>
-    public DHEntityBase()
+    public CubeEntityBase()
     {
         CustomProperties = [];
         PostInitialize();
