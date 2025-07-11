@@ -29,4 +29,5 @@ bld/
 /src/Pek.VueNetCoreT.Server/.config
 /pek.vuenetcoret.client/node_modules
 /src/Pek.VueNetCoreT/Entity/Config/XCode.config
-/src/Pek.VueNetCoreT/.vs/Pek.VueNetCoreT
+/src/Pek.VueNetCoreT/.vs
+/src/Pek.VueNetCoreT/Pek.VueNetCoreT.sln
