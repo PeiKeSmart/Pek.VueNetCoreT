@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store/index'
 import { useRouter, useRoute } from 'vue-router'
 import { nextTick } from 'vue'
-import sign from '../utils/sign.js'
+import { SHA1 } from 'crypto-js'
 const router = useRouter()
 axios.defaults.timeout = 50000
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
@@ -29,12 +29,11 @@ if (!axios.defaults.baseURL.endsWith('/')) {
 let ipAddress = axios.defaults.baseURL
 axios.interceptors.request.use(
   (config) => {
-    let json = {}
-    json = sign.sign(json, 'HlkTech20200429');
-    console.log('json => ', json)
+    console.log('getSignature() => ', getSignature())
     config.headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': getToken()
+      'Authorization': getToken(),
+      ...getSignature()
     }
     return config
   },
@@ -100,6 +99,31 @@ function checkResponse(res) {
   } else if (res.headers.vol_exp == '1') {
     replaceToken()
   }
+}
+
+function getSignature() {
+  let json = {
+    timestamp: getTimestamp(),
+    nonce: mtRand(100000, 999999),
+    appkey: 'PjWvzYsQwjUgFEBU',
+    id: new Date().getTime().toString()
+  }
+  let s = [json.timestamp.toString(), json.nonce.toString(), json.appkey]
+  s.sort()
+  json.signature = SHA1(s.join('')).toString()
+  delete json.appkey
+  return json;
+}
+
+function getTimestamp()
+{
+    return Date.parse(new Date());
+}
+
+function mtRand(min, max)
+{
+    var result = Math.random() * (max - min + 1) + min;
+    return parseInt(result);
 }
 
 const _Authorization = 'Authorization'
