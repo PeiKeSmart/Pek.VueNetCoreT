@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+
+using DH.Entity;
+
+using Microsoft.AspNetCore.Mvc;
 
 using NewLife;
 
@@ -38,7 +42,16 @@ public class MenuController : PekControllerBaseX
         }
         result.Id = Id;
 
-        
+        var UId = DHWeb.Identity.GetValue(ClaimTypes.Sid);
+
+        var model = UserE.FindByID(UId.ToInt());
+        if (model == null)
+        {
+            result.Message = GetResource("未获取到当前用户数据！", Lng);
+            return result;
+        }
+
+
 
         result.Code = StateCode.Ok;
 
