@@ -11,17 +11,17 @@
       :unique-opened="true" @select="select" :collapse="isCollapse" @open="handleOpen" @close="handleClose"
       @contextmenu.prevent="bindRightClickMenu">
       <template v-for="item in convertTree(list)">
-        <el-sub-menu :key="item.id" :index="'' + item.id" v-if="item.children.length && (!enable || item.enable == 1)">
+        <el-sub-menu :key="item.Id" :index="'' + item.Id" v-if="item.children.length && (!enable || item.enable == 1)">
           <template #title>
             <i class="menu-icon" :class="item.icon"></i>
-            <span> {{ item.name}}</span>
+            <span> {{ item.Name}}</span>
           </template>
           <vol-element-menu-child :enable="enable" :list="item.children"></vol-element-menu-child>
         </el-sub-menu>
         <template v-else>
-          <el-menu-item class="menu-item-lv1" v-if="!enable || item.enable == 1" :key="item.id" :index="'' + item.id">
+          <el-menu-item class="menu-item-lv1" v-if="!enable || item.enable == 1" :key="item.Id" :index="'' + item.Id">
             <i :class="item.icon"></i>
-            <span> {{ item.name }}</span>
+            <span> {{ item.Name }}</span>
           </el-menu-item>
         </template>
       </template>
@@ -86,9 +86,9 @@ export default defineComponent({
         node.children = [];
       }
       data.forEach((x) => {
-        if (x.parentId == id && !node.children.some((c) => c.id === x.id)) {
+        if (x.ParentId == id && !node.children.some((c) => c.Id === x.Id)) {
           node.children.push(x);
-          getTree(x.id, x, data);
+          getTree(x.Id, x, data);
         }
       });
     };
@@ -98,17 +98,18 @@ export default defineComponent({
         x.icon = "el-icon-menu";
       }
       x.children = [];
-      x.isRoot = x.parentId === rootTreeId;
+      x.isRoot = x.ParentId === rootTreeId;
     });
     const convertTree = (data) => {
       var root_data = [];
       data.forEach((x) => {
-        if (x.parentId === rootTreeId) {
+        if (x.ParentId === rootTreeId) {
           if (!x.hasOwnProperty("enable")) x.enable = 1;
           root_data.push(x);
-          getTree(x.id, x, data);
+          getTree(x.Id, x, data);
         }
       });
+      console.log('root_data => ', root_data);
       return root_data;
     };
     const openedIds = reactive([props.currentMenuId]);
@@ -188,7 +189,7 @@ export default defineComponent({
         return;
       }
       searchValue.value = "";
-      if(proxy.list.some(c=>{return c.parentId===id})){
+      if(proxy.list.some(c=>{return c.ParentId===id})){
         return;
       }
       select(id, props.list[index]);
