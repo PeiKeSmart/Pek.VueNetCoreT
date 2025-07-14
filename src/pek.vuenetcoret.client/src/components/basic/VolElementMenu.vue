@@ -114,18 +114,18 @@ export default defineComponent({
     const openedIds = reactive([props.currentMenuId]);
     const defaultActive = ref(props.currentMenuId + "");
     let _base = getCurrentInstance().appContext.config.globalProperties.base;
-    watch(
-      () => props.currentMenuId,
-      (newVal, oldVal) => {
-        defaultActive.value = newVal + "";
-        openedIds.splice(0);
-        openedIds.push(
-          ..._base.getTreeAllParent(newVal, props.list).map((c) => {
-            return c.id;
-          })
-        );
-      }
-    );
+    // watch(
+    //   () => props.currentMenuId,
+    //   (newVal, oldVal) => {
+    //     defaultActive.value = newVal + "";
+    //     openedIds.splice(0);
+    //     openedIds.push(
+    //       ..._base.getTreeAllParent(newVal, props.list).map((c) => {
+    //         return c.id;
+    //       })
+    //     );
+    //   }
+    // );
     const router = useRouter();
     let eventSelect = false;
     const select = (index, _item) => {

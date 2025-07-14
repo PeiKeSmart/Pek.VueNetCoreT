@@ -128,7 +128,6 @@
       </div>
       <div class="vol-main" id="vol-main">
         <el-scrollbar style="height: 100%" v-if="permissionInited">
-          <loading v-show="$store.getters.isLoading()"></loading>
           <router-view v-slot="{ Component }">
             <keep-alive>
               <component
@@ -322,12 +321,26 @@ export default defineComponent({
         window.open(item.path);
         return;
       }
-      if (typeof item == "string" || item.path == "/login") {
-        if (item == "/login" || item.path == "/login") {
-          store.commit("clearUserInfo", "");
-          window.location.href = "/";
-          return;
+      if (item.path == "/login") {
+        console.log('localStorage.getItem ', localStorage.getItem('user'))
+        const { Token } = JSON.parse(localStorage.getItem('user'));
+        console.log('token => ', Token)
+        const params = {
+          AccessToken: Token.AccessToken,
+          RefreshToken: Token.RefreshToken,
         }
+        http.post('/api/v1/user/Logout', params).then((result) => {
+          console.log('result => ', result)
+          store.commit("clearUserInfo", "");
+          router.push({ path: '/login' });
+        });
+      }
+      if (typeof item == "string") {
+        // if (item == "/login") {
+        //   store.commit("clearUserInfo", "");
+        //   window.location.href = "/";
+        //   return;
+        // }
         router.push({ path: item });
         return;
       }
@@ -569,47 +582,49 @@ export default defineComponent({
       }
       Object.assign(_config.$tabs, { open: open, close: close });
       console.log('进来')
-      http.get("api/v1/menu/getTreeMenu", {}, true).then((data) => {
-        // data.push({ id: "1", name: "首页", url: "/home" }); // 为了获取选中id使用
-        // data.forEach((d) => {
-        //   d.path = (d.url || "").replace("/Manager", "");
-        //   d.to = (d.url || "").replace("/Manager", "");
-        //   if (!d.icon || d.icon.substring(0, 3) != "el-") {
-        //     d.icon = "el-icon-menu";
-        //   }
-        // });
-        // store.dispatch("setPermission", data);
-        // menuOptions.value = data;
-        // permissionInited.value = true;
+      http.get("api/v1/menu/getTreeMenu", {}, true).then((res) => {
+        const data = res.Data
+        console.log('data => ', data)
+        data.push({ id: "1", name: "首页", url: "/home" }); // 为了获取选中id使用
+        data.forEach((d) => {
+          d.path = (d.url || "").replace("/Manager", "");
+          d.to = (d.url || "").replace("/Manager", "");
+          if (!d.icon || d.icon.substring(0, 3) != "el-") {
+            d.icon = "el-icon-menu";
+          }
+        });
+        store.dispatch("setPermission", data);
+        menuOptions.value = data;
+        permissionInited.value = true;
 
-        // //开启消息推送（main.js中设置是否开启signalR）2022.05.05
-        // if (_config.$global.signalR) {
-        //   MessageConfig(http, (result) => {
-        //     messageList.unshift(result);
-        //     //    console.log(result)
-        //   });
-        // }
+        //开启消息推送（main.js中设置是否开启signalR）2022.05.05
+        if (_config.$global.signalR) {
+          MessageConfig(http, (result) => {
+            messageList.unshift(result);
+            //    console.log(result)
+          });
+        }
 
-        // //当前刷新是不是首页
-        // if (router.currentRoute.value.path != navigation[0].path) {
-        //   //查找系统菜单
-        //   let item = menuOptions.value.find((x) => {
-        //     return x.path == router.currentRoute.value.path; //this.$route.path;
-        //   });
-        //   if (item) return onSelect(item.id);
-        //   //查找顶部快捷连接
-        //   item = links.value.find((x) => {
-        //     return x.path == router.currentRoute.value.path; //this.$route.path;
-        //   });
-        //   //查找最后一次跳转的页面
-        //   if (!item) {
-        //     item = getItem();
-        //   }
-        //   if (item) {
-        //     return open(item, false);
-        //   }
-        // }
-        // selectId.value = "1";
+        //当前刷新是不是首页
+        if (router.currentRoute.value.path != navigation[0].path) {
+          //查找系统菜单
+          let item = menuOptions.value.find((x) => {
+            return x.path == router.currentRoute.value.path; //this.$route.path;
+          });
+          if (item) return onSelect(item.id);
+          //查找顶部快捷连接
+          item = links.value.find((x) => {
+            return x.path == router.currentRoute.value.path; //this.$route.path;
+          });
+          //查找最后一次跳转的页面
+          if (!item) {
+            item = getItem();
+          }
+          if (item) {
+            return open(item, false);
+          }
+        }
+        selectId.value = "1";
       });
     };
     created();
