@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="loging-btn">
-        <el-button size="large" :loading="loading" color="#3a6cd1" :dark="true" @click="login" long>
+        <el-button size="large" :loading="loading" color="#3a6cd1" :dark="true" @click="login">
           <span v-if="!loading">登录</span>
           <span v-else>正在登录...</span>
         </el-button>
@@ -88,7 +88,7 @@ import {
   getCurrentInstance
 } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-// import store from '../store/index';
+import store from '../store/index';
 import http from '@/../src/api/http.js';
 import md5 from "js-md5";
 export default defineComponent({
@@ -106,7 +106,7 @@ export default defineComponent({
 
     const getVierificationCode = () => {
       http.get('/CaptCha/GetVierificationCode').then((x) => {
-        codeImgSrc.value = 'data:image/png;base64,' + x.Data.img;
+        codeImgSrc.value = 'data:image/gif;base64,' + x.Data.img;
         userInfo.codeId = x.Data.uuid;
       });
     };
@@ -125,26 +125,24 @@ export default defineComponent({
       loading.value = true;
       const params = {
         ...userInfo,
-        // password: md5(userInfo.password)
+        password: md5(userInfo.password).toUpperCase()
       }
-      console.log('params ==> ', params)
       http.post('/api/v1/user/Login', params, '正在登录....').then((result) => {
-        console.log('res => ', result)
         if (result.Code !== 1) {
           loading.value = false;
           getVierificationCode();
           return $message.error(result.Message);
         }
         $message.success('登录成功,正在跳转!');
-        store.commit('setUserInfo', result.data);
+        store.commit('setUserInfo', result.Data);
         router.push({ path: '/' });
       });
     };
-    // const loginPress = (e) => {
-    //   if (e.keyCode == 13) {
-    //     login();
-    //   }
-    // };
+    const loginPress = (e) => {
+      if (e.keyCode == 13) {
+        login();
+      }
+    };
     // const openUrl = (url) => {
     //   window.open(url, '_blank');
     // };
@@ -154,7 +152,7 @@ export default defineComponent({
       getVierificationCode,
       login,
       userInfo,
-      // loginPress,
+      loginPress,
       // openUrl
     };
   },

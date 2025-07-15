@@ -5,7 +5,7 @@ import router from './router'
 import ElementPlus from 'element-plus'
 // import 'element-plus/lib/theme-chalk/index.css';
 import 'element-plus/dist/index.css'
-// import './assets/element-icon/icon.css'
+import './assets/element-icon/icon.css'
 // import base from './uitils/common'
 // import http from './api/http'
 // import 'dayjs/locale/zh-cn'

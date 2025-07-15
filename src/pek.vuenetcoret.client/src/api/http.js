@@ -1,8 +1,9 @@
 import axios from 'axios'
 import store from '../store/index'
-import { useRouter, useRoute } from 'vue-router'
+// import { useRouter, useRoute } from 'vue-router'
 import { nextTick } from 'vue'
-const router = useRouter()
+import { SHA1 } from 'crypto-js'
+// const router = useRouter()
 axios.defaults.timeout = 50000
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
@@ -28,8 +29,20 @@ if (!axios.defaults.baseURL.endsWith('/')) {
 let ipAddress = axios.defaults.baseURL
 axios.interceptors.request.use(
   (config) => {
-    console.log('config => ', config)
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'; 
+    console.log('getSignature() => ', getSignature())
+    // 不需要签名的接口
+    const notNeedSignatureArr = ['/CaptCha/GetVierificationCode']
+    if (notNeedSignatureArr.includes(config.url)) {
+      return config
+    } else {
+      config.headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': getToken(),
+        ...getSignature()
+      }
+    }
+    // if ()
+
     return config
   },
   (error) => {
@@ -46,20 +59,18 @@ axios.interceptors.response.use(
     return Promise.resolve(res)
   },
   (error) => {
-    console.log('error => ', error)
     closeLoading()
     let httpMessage = ''
     if (error.response) {
       if (error.response.status == '401') {
         if (error.response.data && error.response.data.Code == 2) {
-          console.log('123131231')
-          // if (!localStorage.getItem('user')) {
-            // Message.error({
-            //     showClose: true,
-            //     message: '登陆已过期',
-            //     type: 'error'
-            // });
-          // }
+          if (!localStorage.getItem('user')) {
+            Message.error({
+                showClose: true,
+                message: '登陆已过期',
+                type: 'error'
+            });
+          }
           toLogin()
           return
         }
@@ -96,6 +107,31 @@ function checkResponse(res) {
   } else if (res.headers.vol_exp == '1') {
     replaceToken()
   }
+}
+
+function getSignature() {
+  let json = {
+    timestamp: getTimestamp(),
+    nonce: mtRand(100000, 999999),
+    appkey: 'tRdUsTfy4VINPOi9',
+    id: new Date().getTime().toString()
+  }
+  let s = [json.timestamp.toString(), json.nonce.toString(), json.appkey]
+  s.sort()
+  json.signature = SHA1(s.join('')).toString()
+  delete json.appkey
+  return json;
+}
+
+function getTimestamp()
+{
+    return Date.parse(new Date());
+}
+
+function mtRand(min, max)
+{
+    var result = Math.random() * (max - min + 1) + min;
+    return parseInt(result);
 }
 
 const _Authorization = 'Authorization'
@@ -158,7 +194,7 @@ function get(url, param, loading, config) {
       .get(url, config)
       .then(
         (response) => {
-          resolve(response.data)
+          resolve(response && response.data)
         },
         (err) => {
           reject(err)

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityModel xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="https://newlifex.com https://newlifex.com/Model202407.xsd" Version="11.7.2023.0327" Document="https://newlifex.com/xcode/model" xmlns="https://newlifex.com/Model202407.xsd">
+  <Option>
+    <!--类名模板。其中{name}替换为Table.Name，如{name}Model/I{name}Dto等-->
+    <ClassNameTemplate />
+    <!--显示名模板。其中{displayName}替换为Table.DisplayName-->
+    <DisplayNameTemplate />
+    <!--基类。可能包含基类和接口，其中{name}替换为Table.Name-->
+    <BaseClass>CubeEntityBase</BaseClass>
+    <!--命名空间-->
+    <Namespace>Pek.Entity</Namespace>
+    <!--输出目录-->
+    <Output>.\</Output>
+    <!--是否使用中文文件名。默认false-->
+    <ChineseFileName>False</ChineseFileName>
+    <!--用于生成Copy函数的参数类型。例如{name}或I{name}-->
+    <ModelNameForCopy />
+    <!--带有索引器。实现IModel接口-->
+    <HasIModel>False</HasIModel>
+    <!--可为null上下文。生成String?等-->
+    <Nullable>True</Nullable>
+    <!--数据库连接名-->
+    <ConnName>Pek</ConnName>
+    <!--模型类模版。设置后生成模型类，用于接口数据传输，例如{name}Model-->
+    <ModelClass>{name}Model</ModelClass>
+    <!--模型类输出目录。默认当前目录的Models子目录-->
+    <ModelsOutput>.\Models\</ModelsOutput>
+    <!--模型接口模版。设置后生成模型接口，用于约束模型类和实体类，例如I{name}-->
+    <ModelInterface>I{name}</ModelInterface>
+    <!--模型接口输出目录。默认当前目录的Interfaces子目录-->
+    <InterfacesOutput>.\Interfaces\</InterfacesOutput>
+    <!--用户实体转为模型类的模型类。例如{name}或{name}DTO-->
+    <ModelNameForToModel />
+    <!--命名格式。Default/Upper/Lower/Underline-->
+    <NameFormat>Default</NameFormat>
+    <!--魔方区域显示名-->
+    <DisplayName />
+    <!--魔方控制器输出目录-->
+    <CubeOutput />
+  </Option>
+  <Tables>
+    <Table Name="UserEx" TableName="DH_UserEx" Description="用户扩展表">
+      <Columns>
+        <Column Name="Id" DataType="Int32" PrimaryKey="True" Description="编号" />
+      </Columns>
+    </Table>
+    <Table Name="SysMenu" TableName="DH_SysMenu" Description="菜单基础信息表" IgnoreNameCase="False">
+      <Columns>
+        <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+        <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="菜单名称" />
+        <Column Name="Auth" DataType="String" RawType="text" Length="0" Description="权限配置。JSON格式存储Actions" />
+        <Column Name="Icon" DataType="String" Description="图标" />
+        <Column Name="Description" DataType="String" Length="200" Description="说明" />
+        <Column Name="Enable" DataType="Boolean" Description="是否启用" />
+        <Column Name="OrderNo" DataType="Int32" Description="排序号" />
+        <Column Name="TableName" DataType="String" Description="关联表名" />
+        <Column Name="ParentId" DataType="Int32" Description="父级菜单ID" />
+        <Column Name="Url" DataType="String" RawType="text" Length="0" Description="菜单链接" />
+        <Column Name="MenuType" DataType="Int32" Description="菜单类型：0=PC端，1=移动端" />
+        <Column Name="CreateUser" DataType="String" Description="创建者" />
+        <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
+        <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
+        <Column Name="CreateIP" DataType="String" Description="创建地址" />
+        <Column Name="UpdateUser" DataType="String" Description="更新者" />
+        <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
+        <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
+        <Column Name="UpdateIP" DataType="String" Description="更新地址" />
+      </Columns>
+      <Indexes>
+        <Index Columns="Name" />
+        <Index Columns="Enable" />
+        <Index Columns="ParentId" />
+        <Index Columns="MenuType" />
+      </Indexes>
+    </Table>
+    <Table Name="SysRoleAuth" TableName="DH_SysRoleAuth" Description="角色权限表" IgnoreNameCase="False">
+      <Columns>
+        <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+        <Column Name="AuthValue" DataType="String" RawType="text" Length="0" Description="存储具体的权限操作。如Search,Add,Delete,Update,Import,Export,Upload,Audit等，多个权限用逗号分隔" />
+        <Column Name="SysMenuId" DataType="Int32" Description="菜单编号" />
+        <Column Name="RoleId" DataType="Int32" Description="角色编号" />
+        <Column Name="UserId" DataType="Int32" Description="用户编号" />
+        <Column Name="CreateUser" DataType="String" Description="创建者" />
+        <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
+        <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
+        <Column Name="CreateIP" DataType="String" Description="创建地址" />
+        <Column Name="UpdateUser" DataType="String" Description="更新者" />
+        <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
+        <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
+        <Column Name="UpdateIP" DataType="String" Description="更新地址" />
+      </Columns>
+      <Indexes>
+        <Index Columns="SysMenuId,RoleId" Unique="True" />
+      </Indexes>
+    </Table>
+    <Table Name="SysRole" TableName="DH_SysRole" Description="系统角色表" IgnoreNameCase="False">
+      <Columns>
+        <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+        <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="菜单名称" />
+        <Column Name="DeptName" DataType="String" Description="部门名称" />
+        <Column Name="DeptId" DataType="Int32" Description="部门编号" />
+        <Column Name="Enable" DataType="Boolean" Description="是否启用" />
+        <Column Name="OrderNo" DataType="Int32" Description="排序号" />
+        <Column Name="ParentId" DataType="Int32" Description="父级角色ID" />
+        <Column Name="DeleteBy" DataType="String" Description="删除该角色的用户（软删除标记）" />
+        <Column Name="CreateUser" DataType="String" Description="创建者" />
+        <Column Name="CreateUserID" DataType="Int32" Description="创建者" />
+        <Column Name="CreateTime" DataType="DateTime" Description="创建时间" />
+        <Column Name="CreateIP" DataType="String" Description="创建地址" />
+        <Column Name="UpdateUser" DataType="String" Description="更新者" />
+        <Column Name="UpdateUserID" DataType="Int32" Description="更新者" />
+        <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" />
+        <Column Name="UpdateIP" DataType="String" Description="更新地址" />
+      </Columns>
+      <Indexes>
+        <Index Columns="Name" />
+        <Index Columns="ParentId" />
+        <Index Columns="DeleteBy" />
+      </Indexes>
+    </Table>
+  </Tables>
+</EntityModel>

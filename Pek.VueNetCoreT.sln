@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "pek.vuenetcoret.client", "src\pek.vuenetcoret.client\pek.vuenetcoret.client.esproj", "{8DB98FA6-C596-50DE-4BF3-AFDA3EE70B87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pek.VueNetCoreT.Server", "src\Pek.VueNetCoreT.Server\Pek.VueNetCoreT.Server.csproj", "{302FECAC-2226-4E19-A088-DD17BED8233F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pek.VueNetCoreT", "src\Pek.VueNetCoreT\Pek.VueNetCoreT.csproj", "{302FECAC-2226-4E19-A088-DD17BED8233F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
