@@ -9,6 +9,7 @@
     <SpaRoot>..\pek.vuenetcoret.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:53007</SpaProxyServerUrl>
+    <AssemblyName>Pek.VueNetCoreT</AssemblyName>
   </PropertyGroup>  
 
   <ItemGroup>
